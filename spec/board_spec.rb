@@ -27,12 +27,12 @@ describe 'Board class' do
   it 'should display the board on standard output' do
     board = Board.new
     board.printgrid.should == <<-EOF.gsub(/^ {6}/, '')
-    
-        | |  
-     ----------
-        | |  
-     ----------
-        | |  
+
+       + | + | +
+      -----------
+       + | + | +
+      -----------
+       + | + | + 
     EOF
   end
 end
