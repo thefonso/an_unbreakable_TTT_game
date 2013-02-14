@@ -2,10 +2,17 @@ require 'human'
 require 'board'
 
 describe 'Human class' do
-  it 'should receive a board' do
-    board = Board.new
-    human = Human.new
-    human.makes_move(board).should == "bob"
+  before (:each) do
+    @board = Board.new
+    @human = Human.new
   end
+
+  it 'should see a board' do
+    @human.makes_move(board).should == "bob"
+  end
+
+  xit 'should put play on board' do
+  end
+
 end
 

@@ -1,10 +1,12 @@
 require 'board'
 
 describe 'Board class' do
+  before (:each) do
+    @board = Board.new
+  end
   it 'should have an empty grid' do
-    board = Board.new
 
-    board.grid.should == [
+    @board.grid.should == [
       ['+', '+', '+'],
       ['+', '+', '+'],
       ['+', '+', '+']
@@ -12,11 +14,10 @@ describe 'Board class' do
   end
 
   it 'should play a move' do
-    board = Board.new
 
-    board.play_move(0, 0, 'o')
+    @board.play_move(0, 0, 'o')
 
-    board.grid.should == [
+    @board.grid.should == [
       ['o', '+', '+'],
       ['+', '+', '+'],
       ['+', '+', '+']
