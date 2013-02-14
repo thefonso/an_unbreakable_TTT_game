@@ -7,7 +7,7 @@ describe 'Game class' do
   before (:each) do
     @board = Board.new
     @human = Human.new
-    @ai    = Ai.new
+    @ai    = AI.new
   end
 
   xit 'should draw a board' do
