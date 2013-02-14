@@ -17,7 +17,9 @@ describe 'Game class' do
     @game.board.should_not be_nil
   end
 
-  xit 'should display a board' do
+  it 'should display game board state' do
+    # TODO - display the game board
+    @game.board ??
   end
 
   xit 'should ask human to put play on board' do
