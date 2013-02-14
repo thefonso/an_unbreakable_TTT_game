@@ -7,20 +7,20 @@ describe 'Board class' do
   it 'should have an empty grid' do
 
     @board.grid.should == [
-      ['+', '+', '+'],
-      ['+', '+', '+'],
-      ['+', '+', '+']
+      '+', '+', '+',
+      '+', '+', '+',
+      '+', '+', '+'
     ]
   end
 
   it 'should play a move' do
 
-    @board.play_move(0, 0, 'o')
+    @board.play_move(0, 'o')
 
     @board.grid.should == [
-      ['o', '+', '+'],
-      ['+', '+', '+'],
-      ['+', '+', '+']
+      'o', '+', '+',
+      '+', '+', '+',
+      '+', '+', '+'
     ]
   end
 end

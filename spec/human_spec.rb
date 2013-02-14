@@ -2,17 +2,15 @@ require 'human'
 require 'board'
 
 describe 'Human class' do
-  before (:each) do
-    @board = Board.new
-    @human = Human.new
+  it 'should receive play from input' do
+    Kernel.stub(:gets).and_return('1234567890')
+    human = Human.new
+    human.make_move.should_not be_nil
   end
 
-  it 'should see a board' do
-    @human.makes_move(board).should == "bob"
+  it 'should place move in upper right corner' do
+    Kernel.stub(:gets).and_return('0')
+    human = Human.new
+    human.make_move.should == '0'
   end
-
-  xit 'should put play on board' do
-  end
-
 end
-

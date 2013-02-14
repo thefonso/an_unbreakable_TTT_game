@@ -10,10 +10,13 @@ describe 'Game class' do
     @ai    = AI.new
   end
 
-  xit 'should draw a board' do
+  it 'should have a board' do
+    game = Game.new
+    game.board.should_not be_nil
   end
 
-  xit 'should ask player to put play on board' do
+  it 'should ask human to put play on board' do
+    @human.should
   end
 end
 

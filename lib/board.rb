@@ -3,13 +3,14 @@ class Board
 
   def initialize
     @grid = [
-      ['+', '+', '+'],
-      ['+', '+', '+'],
-      ['+', '+', '+']
+      '+', '+', '+',
+      '+', '+', '+',
+      '+', '+', '+'
     ]
+    # 0, 1, 2, 3, 4, 5, 6...
   end
 
-  def play_move(row, column, piece)
-    @grid[row][column] = piece
+  def play_move(position, piece)
+    @grid[position] = piece
   end
 end
