@@ -11,9 +11,4 @@ describe 'Human class' do
     human.make_move.should_not be_nil
   end
 
-  xit 'should place move in upper right corner' do
-    $stdin.stub(:gets).and_return('0')
-    human = Human.new
-    human.make_move.should == '0'
-  end
 end
