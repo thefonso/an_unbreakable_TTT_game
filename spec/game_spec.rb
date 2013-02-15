@@ -18,12 +18,15 @@ describe 'Game class' do
     @game.drawgrid
   end
 
-  xit 'should take turns between players' do
+  xit 'should be able to switch players' do  
+    @game.switch_players
   end
 
-  xit 'should ask AI to put play on board' do
+  xit 'should evaluate game' do
     @ai.make_move.should_not be_nil 
   end
+
+  
 end
 
 
