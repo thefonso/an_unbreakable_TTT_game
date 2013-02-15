@@ -4,13 +4,11 @@ require 'board'
 describe 'ai class' do
   before (:each) do
     @board = Board.new
-    @ai    = AI.new
   end
-
-  xit 'should see a board' do
-    @ai.makes_move(board).should == "bob"
-  end
-  xit 'should put play on board' do
+  it 'should receive play from input' do
+    $stdin.stub(:gets).and_return(1)
+    ai = AI.new
+    ai.make_move.should_not be_nil
   end
 end
 
