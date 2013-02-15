@@ -1,7 +1,17 @@
 require_relative 'board'
 require_relative 'human'
 require_relative 'ai'
-
+# What does this need to do?
+#
+# IOobject (interface to CLI, Rails or Limelight)
+#
+# game(interacts with human, ai, board
+# 
+# human(returns a move)
+# ai(returns a move)
+# board(displays gameboard)
+#
+#
 class Game
   attr_reader :board_state
 
