@@ -2,15 +2,18 @@ require 'human'
 require 'board'
 
 describe 'Human class' do
+  before (:each) do
+    @board = Board.new
+  end
   it 'should receive play from input' do
-    Kernel.stub(:gets).and_return('1234567890')
+    $stdin.stub(:gets).and_return(1)
     human = Human.new
-    human.make_move.should_not be_nil
+    human.make_move(@board).should_not be_nil
   end
 
-  it 'should place move in upper right corner' do
-    Kernel.stub(:gets).and_return('0')
+  xit 'should place move in upper right corner' do
+    $stdin.stub(:gets).and_return('0')
     human = Human.new
-    human.make_move.should == '0'
+    human.make_move(@board).should == '0'
   end
 end

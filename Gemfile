@@ -1,0 +1,6 @@
+source 'http://rubygems.org'
+gem 'ruby-debug19'
+gem 'cheat'
+gem 'pry'
+gem 'pry-doc'
+gem 'facets'

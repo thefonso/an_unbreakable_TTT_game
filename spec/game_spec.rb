@@ -1,7 +1,7 @@
 require 'game'
 require 'ai'
 require 'human'
-require 'player'
+require 'board'
 
 describe 'Game class' do
   before (:each) do
@@ -13,17 +13,12 @@ describe 'Game class' do
     @game  = Game.new(@player_1, @player_2, @board)
   end
 
-  it 'should have a board' do
-    @game.board.should_not be_nil
-  end
-
   it 'should display game board state' do
-    # TODO - display the game board
-    @game.board ??
+    @board.should_receive(:printgrid)
+    @game.drawgrid
   end
 
-  xit 'should ask human to put play on board' do
-    @human.make_move.should_not be_nil 
+  xit 'should take turns between players' do
   end
 
   xit 'should ask AI to put play on board' do
