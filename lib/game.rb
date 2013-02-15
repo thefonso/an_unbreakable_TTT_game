@@ -3,6 +3,8 @@ require_relative 'human'
 require_relative 'ai'
 # What does this need to do?
 #
+#(imagine CLI, RAILS or Limelight sit up here how do you write this so SOLID is in place?)
+#
 # IOobject (interface to CLI, Rails or Limelight)
 #
 # game(interacts with human, ai, board
