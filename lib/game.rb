@@ -3,7 +3,7 @@ require_relative 'human'
 require_relative 'ai'
 # What does this need to do?
 #
-#(imagine CLI, RAILS or Limelight sit up here, how do you write this so SOLID is in place?)
+# (imagine CLI, RAILS or Limelight sit up here, how do you write this so SOLID is in place?)
 #
 # IOobject (interface to CLI, Rails or Limelight)
 #
@@ -15,19 +15,22 @@ require_relative 'ai'
 #
 #
 class Game
-  attr_reader :board_state
+  attr_reader :board
 
-  def initialize(player_1,player_2,board_state)
-   @board_state = board_state
+  def initialize(player_1,player_2,board)
+   @board = board
    @player_1 = player_1
    @player_2 = player_2
+   @current_player = @player_1
   end
   
   def drawgrid
-    @board_state.printgrid
+    @board.printgrid
   end
 
-  def switch_players  
+  def play_move(move)
+    @board.grid[move] = @current_player
+    switch_players
   end
 
   def play
@@ -37,6 +40,7 @@ class Game
   end
 
   def get_human_move
+    human.make_move
   end
 
   def next_move
@@ -60,6 +64,23 @@ class Game
 
   def prompt_next_player
     #switch players
+  end
+
+
+  def switch_players  
+    if @current_player == @player_1
+      @current_player = @player_2
+    else
+      @current_player = @player_1
+    end
+  end
+
+  def valid_move?(move)
+    @board.grid[move] == '+'
+  end
+
+  def over?
+    @board.grid.none? {|move| move == '+'}
   end
 
 end
