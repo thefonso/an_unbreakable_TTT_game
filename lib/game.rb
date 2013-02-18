@@ -39,6 +39,12 @@ class Game
     human.make_move.to_i
   end
 
+  def get_ai_move
+    ai = AI.new
+    ai.make_move.to_i
+  end
+
+
   def next_move
   end
 
