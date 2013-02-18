@@ -1,6 +1,6 @@
 class AI
   def make_move
-    p "Choose a move 0..9"
+    p "AI takes move..."
     move = gets.chomp
     return move
   end

@@ -13,7 +13,7 @@ require_relative 'ai'
 # ai(returns a move)
 # board(displays gameboard)
 #
-#
+
 class Game
   attr_reader :board
 
@@ -34,13 +34,15 @@ class Game
   end
 
   def play
-    get_human_move unless game.next_move
-    redraw_board #sends game.board to IOobject
-    evaluate_game
+    get_human_move 
+#    get_human_move unless game.next_move
+#    redraw_board #sends game.board to IOobject
+#    evaluate_game
   end
 
   def get_human_move
-    human.make_move
+    human = Human.new
+    human.make_move.to_i
   end
 
   def next_move

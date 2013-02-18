@@ -10,6 +10,7 @@ describe 'ai class' do
     ai = AI.new
     ai.make_move.should_not be_nil
   end
+
 end
 
 
