@@ -10,5 +10,8 @@ describe 'Human class' do
     human = Human.new
     human.make_move.should_not be_nil
   end
-
+  it 'should hold either an X or O as a piece' do
+    human = Human.new
+    human.player_symbol('X').should == 'X'
+  end
 end

@@ -5,7 +5,7 @@ require_relative 'ai'
 #
 # (imagine CLI, RAILS or Limelight sit up here, how do you write this so SOLID is in place?)
 #
-# IOobject (interface to CLI, Rails or Limelight)
+# IOtower (interface to CLI, Rails or Limelight)
 #
 # game(interacts with human, ai, board)
 # 
@@ -44,10 +44,6 @@ class Game
     ai.make_move.to_i
   end
 
-
-  def next_move
-  end
-
   def evaluate_game
     if game.finished?
       display_message
@@ -56,7 +52,6 @@ class Game
       play
     end
   end
-
 
   def switch_players  
     if @current_player == @player_1
