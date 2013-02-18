@@ -31,13 +31,7 @@ class Game
   def play_move(move)
     @board.grid[move] = @current_player
     switch_players
-  end
-
-  def play
-    get_human_move 
-#    get_human_move unless game.next_move
-#    redraw_board #sends game.board to IOobject
-#    evaluate_game
+    #validate_game
   end
 
   def get_human_move
@@ -48,9 +42,6 @@ class Game
   def next_move
   end
 
-  def redraw_board
-  end
-
   def evaluate_game
     if game.finished?
       display_message
@@ -58,14 +49,6 @@ class Game
       prompt_next_player
       play
     end
-  end
-
-  def display_message
-    # IOobject lives here
-  end
-
-  def prompt_next_player
-    #switch players
   end
 
 

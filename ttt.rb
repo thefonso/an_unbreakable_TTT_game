@@ -8,8 +8,8 @@ board = Board.new
 game = Game.new('O', 'X', board)
 
 while !game.over?
+  #IOtower.print_board(game.board.grid)
   puts board.printgrid
   #move = IOtower.ask_for_move #Presenter comes from IO.
   game.play
-  #IOtower.print_board(game.board.grid)
-end
+ end

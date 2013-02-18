@@ -106,22 +106,19 @@ describe 'Game class' do
     end
   end    
 
-  context "play" do
-    it "calls the get_human_move method which returns a human move" do
-      #stub a human move here
-      $stdin.stub(:gets).and_return(1)
-      @game.play.should_not be_nil
-    end
-  end
-
   context "get_human_move" do
     it "returns a human move" do
       $stdin.stub(:gets).and_return(1)
-      # should retrun type of interger
       @game.get_human_move.should be_a_kind_of(Integer)
     end
   end
 
+  context "get_ai_move" do
+    it "returns an AI move" do
+      $stdin.stub(:gets).and_return(1)
+      @game.get_ai_move.should be_a_kind_of(Integer)
+    end
+  end
 
 end
 
