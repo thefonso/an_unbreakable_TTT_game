@@ -4,14 +4,19 @@ require 'board'
 describe 'Human class' do
   before (:each) do
     @board = Board.new
+    @ui = mock(:ui)
+    @ui.stub(:puts)
   end
+
   it 'should receive play from input' do
-    $stdin.stub(:gets).and_return(1)
+    @ui.stub(:gets).and_return("1")
     human = Human.new
     human.make_move.should_not be_nil
   end
+
   it 'should hold either an X or O as a piece' do
-    human = Human.new
-    human.player_symbol('X').should == 'X'
+    human = Human.new(@ui)
+    human.player_symbol = 'X'
+    human.player_symbol.should == 'X'
   end
 end

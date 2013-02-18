@@ -2,23 +2,11 @@ require 'game'
 require 'board'
 
 describe 'Game class' do
- # before (:each) do
- #   @board = Board.new
- #   @player_1 = player_1.new
- #   @player_2    = player_2.new
- #   @player_1 = @player_1
- #   @player_2 = @player_2
- #   @game  = Game.new(@player_1, @player_2, @board)
- # end
- #
- # it 'should display game board state' do
- #   @board.should_receive(:printgrid)
- #   @game.drawgrid
- # end
-
   before(:each) do
-    @player_1 = 'O'
-    @player_2 = 'X'
+    @player_1 = Human.new
+    @player_1.player_symbol = 'O'
+    @player_2 = AI.new
+    @player_2.player_symbol = 'X'
     @board = Board.new
     @game = Game.new(@player_1, @player_2, @board)
   end
@@ -85,7 +73,8 @@ describe 'Game class' do
          '+', '+', '+'
       ]
       
-      @game.play_move(0)
+      @player_1.stub(:make_move).and_return(0)
+      @game.play_move
       
       @game.board.grid[0].should == 'O'
     end
@@ -97,29 +86,15 @@ describe 'Game class' do
          '+', '+', '+'
       ]
       
-      @game.play_move(0)
-      @game.play_move(1)
+      @player_1.stub(:make_move).and_return(0)
+      @game.play_move
+      @player_2.stub(:make_move).and_return(1)
+      @game.play_move
       
       @game.board.grid[0].should == 'O'
       @game.board.grid[1].should == 'X'
-      
     end
   end    
-
-  context "get_human_move" do
-    it "returns a human move" do
-      $stdin.stub(:gets).and_return(1)
-      @game.get_human_move.should be_a_kind_of(Integer)
-    end
-  end
-
-  context "get_ai_move" do
-    it "returns an AI move" do
-      $stdin.stub(:gets).and_return(1)
-      @game.get_ai_move.should be_a_kind_of(Integer)
-    end
-  end
-
 end
 
 
