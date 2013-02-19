@@ -65,7 +65,29 @@ describe 'Game class' do
     end
   end
 
-  context "play_move" do
+  context "evaluate_game" do
+    it "should display message if game is over" do
+      @board.grid = [
+         'O', 'O', 'O',
+         'O', 'O', 'O',
+         'O', 'O', 'O'
+      ]
+
+      @game.evaluate_game == "Game Over"
+    end
+
+    xit "should switch players" do
+      @board.grid = [
+         'O', 'O', 'O',
+         'O', 'O', 'O',
+         'O', '+', '+'
+      ]
+      @game.evaluate_game == ""
+    end
+
+  end
+
+  context "play" do
     it "plays a move for O" do
       @board.grid = [
          '+', '+', '+',
@@ -74,7 +96,7 @@ describe 'Game class' do
       ]
       
       @player_1.stub(:make_move).and_return(0)
-      @game.play_move
+      @game.play
       
       @game.board.grid[0].should == 'O'
     end
@@ -87,14 +109,20 @@ describe 'Game class' do
       ]
       
       @player_1.stub(:make_move).and_return(0)
-      @game.play_move
+      @game.play
       @player_2.stub(:make_move).and_return(1)
-      @game.play_move
+      @game.play
       
       @game.board.grid[0].should == 'O'
       @game.board.grid[1].should == 'X'
     end
-  end    
+  end
+
+  context "switch_players" do
+    it "should switch the current player" do
+      @game.current_player = @player_1 
+      @game.switch_players
+      @game.current_player.should == @player_2
+    end
+  end
 end
-
-

@@ -1,22 +1,11 @@
 require_relative 'board'
 require_relative 'human'
 require_relative 'ai'
-# TODO - move these comments to notes or readme file
-# What does this need to do?
-#
-# (imagine CLI, RAILS or Limelight sit up here, how do you write this so SOLID is in place?)
-#
-# IOtower (interface to CLI, Rails or Limelight)
-#
-# game(interacts with human, ai, board)
-# 
-# human(returns a move)
-# ai(returns a move)
-# board(displays gameboard)
-#
+require_relative 'iotower.rb'
 
 class Game
   attr_reader :board
+  attr_accessor :current_player
 
   def initialize(player_1, player_2, board)
    @board = board
@@ -29,19 +18,20 @@ class Game
     @board.printgrid
   end
 
-  def play_move
-    move = @current_player.make_move
-    @board.grid[move] = @current_player.player_symbol
-    switch_players
+  def evaluate_game
+    io = IOtower.new
+    if over? == true
+      io.display_message_end
+    else
+      switch_players
+    end
   end
 
-  def evaluate_game
-    if game.finished?
-      display_message
-    else
-      prompt_next_player
-      play
-    end
+  def play
+    move = @current_player.make_move
+    @board.grid[move] = @current_player.player_symbol
+    # switch_players
+    evaluate_game
   end
 
   def switch_players  
@@ -59,4 +49,5 @@ class Game
   def over?
     @board.grid.none? {|move| move == '+'}
   end
+
 end

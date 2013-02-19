@@ -5,13 +5,11 @@ class Human
   # TODO - make it so IOtower ask end user for symbol selection
   # hold setting for this in external config.rb file as so ([human, 'X'] )
 
-  def initialize(io = Kernal)
+  def initialize(io = $stdin)
     @io = io
   end
   
   def make_move
-    @io.puts "Human makes move..." # TODO - displayed by IOtower in future refactor
     @io.gets.chomp.to_i
   end
 end
-

@@ -17,5 +17,5 @@ while !game.over?
   #move = IOtower.ask_for_move #Presenter comes from IO.
   # move = # TODO - argh....what goes here now?
 #  move = human.make_move.to_i
-  game.play_move
+  game.play
  end
