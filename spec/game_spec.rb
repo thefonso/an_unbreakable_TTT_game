@@ -1,19 +1,15 @@
 require 'game'
-require 'board'
+require 'iotower'
 
 describe 'Game class' do
   before(:each) do
-    @player_1 = Human.new
-    @player_1.player_symbol = 'O'
-    @player_2 = AI.new
-    @player_2.player_symbol = 'X'
-    @board = Board.new
-    @game = Game.new(@player_1, @player_2, @board)
+    io = IOtower.new
+    @game = Game.new(io)
   end
 
   context "valid_move?" do
     it 'is true if board is empty' do
-      @board.grid = [
+      @game.board.grid = [
         '+', '+', '+',
         '+', '+', '+',
         '+', '+', '+'
@@ -23,7 +19,7 @@ describe 'Game class' do
     end
 
     it 'is false if move is taken' do
-      @board.grid = [
+      @game.board.grid = [
         '0', '+', '+',
         '+', '+', '+',
         '+', '+', '+'
@@ -35,7 +31,7 @@ describe 'Game class' do
 
   context "over?" do
     it 'is false if board is empty' do
-      @board.grid = [
+      @game.board.grid = [
          '+', '+', '+',
          '+', '+', '+',
          '+', '+', '+'
@@ -45,7 +41,7 @@ describe 'Game class' do
     end
 
     it 'is false if board is not full' do
-      @board.grid = [
+      @game.board.grid = [
          'O', '+', '+',
          '+', '+', '+',
          '+', '+', '+'
@@ -55,7 +51,7 @@ describe 'Game class' do
     end
 
     it 'is true if board is full' do
-      @board.grid = [
+      @game.board.grid = [
          'O', 'O', 'O',
          'O', 'O', 'O',
          'O', 'O', 'O'
@@ -67,7 +63,7 @@ describe 'Game class' do
 
   context "evaluate_game" do
     it "should display message if game is over" do
-      @board.grid = [
+      @game.board.grid = [
          'O', 'O', 'O',
          'O', 'O', 'O',
          'O', 'O', 'O'
@@ -75,21 +71,11 @@ describe 'Game class' do
 
       @game.evaluate_game == "Game Over"
     end
-
-    xit "should switch players" do
-      @board.grid = [
-         'O', 'O', 'O',
-         'O', 'O', 'O',
-         'O', '+', '+'
-      ]
-      @game.evaluate_game == ""
-    end
-
   end
 
   context "play" do
     it "plays a move for O" do
-      @board.grid = [
+      @game.board.grid = [
          '+', '+', '+',
          '+', '+', '+',
          '+', '+', '+'
@@ -102,7 +88,7 @@ describe 'Game class' do
     end
 
     it "plays a move for X" do
-      @board.grid = [
+      @game.board.grid = [
          '+', '+', '+',
          '+', '+', '+',
          '+', '+', '+'
