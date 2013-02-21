@@ -4,29 +4,34 @@ describe 'Board class' do
   before (:each) do
     @board = Board.new
   end
-  it 'should have an empty grid' do
+  context 'initialize' do
+    it 'should have an empty grid' do
 
-    @board.grid.should == [
-      '+', '+', '+',
-      '+', '+', '+',
-      '+', '+', '+'
-    ]
+      @board.grid.should == [
+        '+', '+', '+',
+        '+', '+', '+',
+        '+', '+', '+'
+      ]
+    end
   end
 
-  it 'should play a move' do
+  context 'play_move' do
+    it 'should play a move' do
 
-    @board.play_move(0, 'o')
+      @board.play_move(0, 'o')
 
-    @board.grid.should == [
-      'o', '+', '+',
-      '+', '+', '+',
-      '+', '+', '+'
-    ]
+      @board.grid.should == [
+        'o', '+', '+',
+        '+', '+', '+',
+        '+', '+', '+'
+      ]
+    end
   end
 
-  it 'should display the board on standard output' do
-    board = Board.new
-    board.printgrid.should == <<-EOF.gsub(/^ {6}/, '')
+  context 'printgrid' do
+    it 'should display the board on standard output' do
+      board = Board.new
+      board.printgrid.should == <<-EOF.gsub(/^ {6}/, '')
 
        + | + | +
       -----------
@@ -34,5 +39,6 @@ describe 'Board class' do
       -----------
        + | + | + 
     EOF
+    end
   end
 end
