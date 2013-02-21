@@ -43,17 +43,6 @@ describe 'IOtower class' do
     end
   end
 
-
-  context "prompt_next_player" do
-    xit 'should prompt player 1 to enter move' do
-      @ui.stub(:gets).and_return('1')
-      
-    end
-
-    xit 'should receive play from standard input for AI' do
-    end
-  end
-
   context "redraw_board" do
     it 'should redraw the game board to the interface' do
       board = Board.new 

@@ -34,8 +34,6 @@ class IOtower
   end
 
   def redraw_board(grid)
-    # TODO - draws the current game board 
-    # @board.printgrid maybe
     board = "\n"
     board << " #{grid[0]} | #{grid[1]} | #{grid[2]}\n"
     board << "-----------\n"
