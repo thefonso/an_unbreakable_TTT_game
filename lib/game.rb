@@ -7,11 +7,13 @@ require_relative 'config'
 class Game
   attr_reader :board
   attr_accessor :current_player
+  attr_accessor :player_1
+  attr_accessor :player_2
 
   def initialize(io)
    @board = Board.new
    @io = io
-   @pieces = Configfile.new
+   @pieces = Configfile.pieces
   end
  
   def setup
@@ -23,17 +25,17 @@ class Game
     @player_2 = ai #TODO - abstract this to IOtower so end-user can choose
     @current_player = @player_1
     
-    human.player_symbol = ask_for_gamepiece
-    
+    @player_1.player_symbol = ask_for_gamepiece
+
     choose_ai_gamepiece
 
   end
 
   def choose_ai_gamepiece
-    if human.player_symbol = @pieces.first
-      ai.player_symbol = @pieces.last
+    if @player_1.player_symbol == @pieces[0]
+      @player_2.player_symbol = @pieces[1]
     else
-      ai.player_symbol = @pieces.first
+      @player_2.player_symbol = @pieces[0]
     end
   end
 
@@ -54,19 +56,18 @@ class Game
   end
 
   def play
-    move = @io.display_message_and_make_move(@current_player)
+    move = @io.display_message_and_get_move(@current_player)
     @board.grid[move] = @current_player.player_symbol
-    # switch_players
     evaluate_game
   end
 
   def switch_players  
     if @current_player.player_symbol == @player_1.player_symbol
       @current_player = @player_2
-      @io.message(@player_2)
+      @io.display_message_and_get_move(@player_2)
     else
       @current_player = @player_1
-      @io.message(@player_1)
+      @io.display_message_and_get_move(@player_1)
     end
   end
 

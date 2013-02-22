@@ -68,47 +68,82 @@ describe 'Game class' do
          'O', 'O', 'O',
          'O', 'O', 'O'
       ]
-
+      
+      #@game.should_receive(:put_output) 
       @game.evaluate_game == "Game Over"
     end
   end
 
   context "play" do
     it "plays a move for O" do
+      @game.should_receive(:ask_for_gamepiece).and_return('X') 
+      @game.setup
       @game.board.grid = [
          '+', '+', '+',
          '+', '+', '+',
          '+', '+', '+'
       ]
       
-      @player_1.stub(:make_move).and_return(0)
       @game.play
       
-      @game.board.grid[0].should == 'O'
+      @game.board.grid[0].should == 'X'
     end
 
     it "plays a move for X" do
+      @game.should_receive(:ask_for_gamepiece).and_return('O') 
+      @game.setup
       @game.board.grid = [
          '+', '+', '+',
          '+', '+', '+',
          '+', '+', '+'
       ]
       
-      @player_1.stub(:make_move).and_return(0)
-      @game.play
-      @player_2.stub(:make_move).and_return(1)
       @game.play
       
       @game.board.grid[0].should == 'O'
-      @game.board.grid[1].should == 'X'
     end
+  end
+
+  context "choose_ai_gamepiece" do
+    it 'should choose O option for player piece' do
+      io = IOtower.new
+      game = Game.new(io)
+      game.player_1 = Human.new
+      game.player_2 = AI.new
+      game.player_1.player_symbol = 'X'
+
+      game.choose_ai_gamepiece
+
+      game.player_2.player_symbol.should == 'O'
+    end
+
+    it 'should choose X option for player piece' do
+      io = IOtower.new
+      game = Game.new(io)
+      game.player_1 = Human.new
+      game.player_2 = AI.new
+      game.player_1.player_symbol = 'O'
+
+      game.choose_ai_gamepiece
+
+      game.player_2.player_symbol.should == 'X'
+    end
+
   end
 
   context "switch_players" do
     it "should switch the current player" do
-      @game.current_player = @player_1 
-      @game.switch_players
-      @game.current_player.should == @player_2
+      io = IOtower.new
+      game = Game.new(io)
+      game.player_1 = Human.new
+      game.player_2 = AI.new
+      game.player_1.player_symbol = 'X'
+
+      game.current_player = game.player_1
+
+      # game.current_player.player_symbol
+      game.switch_players
+      game.current_player.should == game.player_2
     end
   end
 end
