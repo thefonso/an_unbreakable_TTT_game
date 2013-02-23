@@ -4,51 +4,42 @@ require 'ai'
 
 describe 'IOtower class' do
   before (:each) do
-    @drawbridge = mock("drawbridge")
-    @io = IOtower.new(@drawbridge)
+    @io = IOtower.new
     @ui = mock(:ui)
     @ui.stub(:puts)
   end
   
   context "display_message_start" do
     it 'should display a welcome message'do
-      @drawbridge.should_receive(:put_output).with("Welcome to TTT get ready to play!")
-      @io.display_message_start
+      @io.display_message_start.should == "Welcome to TTT get ready to play!" 
     end
   end
 
   context "display_messgae_end" do
     it 'should display Game Over message' do
-      @drawbridge.should_receive(:put_output).with("Game Over")
-      @io.display_message_end
+      @io.display_message_end.should == "Game Over" 
     end
   end
 
-  context "display_message_and_get_move" do
-    it 'should display human message if the term human is received' do
-      @drawbridge.should_receive(:put_output).with("Human move...")
-      @drawbridge.should_receive(:get_input).and_return('1\n')
-      @io.display_message_and_get_move('human')
+  context "message" do
+    it 'should display human message if human is received' do
+      @io.message('human').should == 'Human move...'
     end
     
     it 'should display ai message if ai = who_i_am' do
-      @drawbridge.should_receive(:put_output).with("AI move...")
-      @drawbridge.should_receive(:get_input).and_return('1\n')
-      @io.display_message_and_get_move('ai')
+      @io.message('ai').should == 'AI move...'
     end
   end
 
   context "human_move_message" do
     it 'should display human message if human = who_i_am' do
-      @drawbridge.should_receive(:put_output).with("Human move...")
-      @io.human_move_message
+      @io.human_move_message.should == 'Human move...'
     end
   end
 
   context "ai_move_message" do
     it 'should display ai message if ai = who_i_am' do
-      @drawbridge.should_receive(:put_output).with("AI move...")
-      @io.ai_move_message
+      @io.ai_move_message.should == 'AI move...'
     end
   end
 
