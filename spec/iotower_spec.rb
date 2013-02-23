@@ -20,51 +20,23 @@ describe 'IOtower class' do
       @io.display_message_end.should == "Game Over" 
     end
   end
-
-  context "message" do
-    it 'should display human message if human is received' do
-      @io.message('human').should == 'Human move...'
-    end
-    
-    it 'should display ai message if ai = who_i_am' do
-      @io.message('ai').should == 'AI move...'
-    end
-  end
-
-  context "human_move_message" do
-    it 'should display human message if human = who_i_am' do
-      @io.human_move_message.should == 'Human move...'
-    end
-  end
-
-  context "ai_move_message" do
-    it 'should display ai message if ai = who_i_am' do
-      @io.ai_move_message.should == 'AI move...'
-    end
-  end
-
-
   context "prompt_next_player" do
-    xit 'should prompt player 1 to enter move' do
+    it 'should receive play from standard input for human' do
       @ui.stub(:gets).and_return('1')
-      
+      human = Human.new(@ui)
+      human.make_move.should == 1
     end
 
-    xit 'should receive play from standard input for AI' do
+    it 'should receive play from standard input for AI' do
+      @ui.stub(:gets).and_return('1')
+      ai = AI.new(@ui)
+      ai.make_move.should == 1
     end
   end
 
   context "redraw_board" do
     it 'should redraw the game board to the interface' do
-      board = Board.new 
-      @io.redraw_board(board.grid).should == <<-EOF.gsub(/^ {6}/, '')
-
-       + | + | +
-      -----------
-       + | + | +
-      -----------
-       + | + | + 
-    EOF
+      
     end
   end
 

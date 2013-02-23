@@ -37,10 +37,8 @@ class Game
   def switch_players  
     if @current_player.player_symbol == @player_1.player_symbol
       @current_player = @player_2
-      io.message(@player_2)
     else
       @current_player = @player_1
-      io.message(@player_1)
     end
   end
 
