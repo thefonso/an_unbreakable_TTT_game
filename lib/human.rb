@@ -5,7 +5,7 @@ class Human
   # TODO - make it so IOtower ask end user for symbol selection
   # hold setting for this in external config.rb file as so ([human, 'X'] )
 
-  def initialize(io = Kernal)
+  def initialize(io = Kernel)
     @io = io
   end
   
