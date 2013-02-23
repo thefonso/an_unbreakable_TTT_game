@@ -1,6 +1,6 @@
-require_relative 'game'
-require_relative 'board'
-require_relative 'iodrawbridge'
+require 'game'
+require 'board'
+require 'iodrawbridge'
 
 board = Board.new
 
