@@ -9,8 +9,8 @@ describe 'Human class' do
   end
 
   it 'should receive play from input' do
-    @ui.stub(:gets).and_return('1')
-    human = Human.new(@ui)
+    @ui.stub(:gets).and_return("1")
+    human = Human.new
     human.make_move.should_not be_nil
   end
 
