@@ -28,7 +28,7 @@ class IOtower
   end
 
   def human_gamepiece
-    @drawbridge.put_output("Enter a gamepiece you want to be 'X' or 'O'")
+    put_output("Enter a gamepiece you want to be 'X' or 'O'")
     @drawbridge.get_input.to_s
   end
 
