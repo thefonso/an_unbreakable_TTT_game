@@ -1,9 +1,11 @@
 require_relative 'board'
 require_relative 'human'
 require_relative 'ai'
+require_relative 'windetection'
 
 class Game
   attr_reader :board
+  include WinDetection
 
   def initialize(player_1, player_2, board)
    @board = board
@@ -17,18 +19,10 @@ class Game
   end
 
   def play_move
+    #puts drawgrid
     move = @current_player.make_move
     @board.grid[move] = @current_player.player_symbol
     switch_players
-  end
-
-  def evaluate_game
-    if game.finished?
-      display_message
-    else
-      prompt_next_player
-      play
-    end
   end
 
   def switch_players  
@@ -44,6 +38,8 @@ class Game
   end
 
   def over?
-    @board.grid.none? {|move| move == '+'}
+    win?(@board.grid, @player_1.player_symbol) ||
+    win?(@board.grid, @player_2.player_symbol) ||
+    @board.grid.none? { |move| move == '+' }
   end
 end

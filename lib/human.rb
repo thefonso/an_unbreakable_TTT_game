@@ -10,7 +10,7 @@ class Human
   end
   
   def make_move
-    @io.puts "Human makes move..." # TODO - displayed by IOtower in future refactor
+    @io.puts "Human makes move..." # TODO - displayed by IO object in future refactor
     @io.gets.chomp.to_i
   end
 end

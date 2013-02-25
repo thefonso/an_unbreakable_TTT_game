@@ -7,9 +7,9 @@ describe 'Board class' do
   it 'should have an empty grid' do
 
     @board.grid.should == [
-      '+', '+', '+',
-      '+', '+', '+',
-      '+', '+', '+'
+      "+", "+", "+",
+      "+", "+", "+",
+      "+", "+", "+"
     ]
   end
 
@@ -18,9 +18,9 @@ describe 'Board class' do
     @board.play_move(0, 'o')
 
     @board.grid.should == [
-      'o', '+', '+',
-      '+', '+', '+',
-      '+', '+', '+'
+      "o", "+", "+",
+      "+", "+", "+",
+      "+", "+", "+"
     ]
   end
 
