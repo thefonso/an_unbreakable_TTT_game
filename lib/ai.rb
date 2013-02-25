@@ -12,5 +12,19 @@ class AI
   def make_move
     @io.puts "AI takes move..."
     @io.gets.chomp.to_i
+    # random_move(baord)
+  end
+
+  def random_move(board)
+    board = board.grid
+    @empty_spaces = []
+
+    board.size.times do |empty|
+      if board[empty] == '+'
+        @empty_spaces << empty
+      end
+      @move = @empty_spaces.sample
+      return @move
+    end
   end
 end

@@ -7,17 +7,26 @@ describe 'ai class' do
     @ui = mock(:ui)
     @ui.stub(:puts)
   end
-
-  it 'should receive play from input' do
-    @ui.stub(:gets).and_return("1")
-    ai = AI.new(@ui)
-    ai.make_move.should_not be_nil
+  context "make_move method" do
+    
+    it 'has player symbol' do
+      ai = AI.new(@ui)
+      ai.player_symbol = 'O'
+      ai.player_symbol.should == 'O'
+    end
+   
+    it 'should receive play from input' do
+      @ui.stub(:gets).and_return("1")
+      ai = AI.new(@ui)
+      ai.make_move.should_not be_nil
+    end
   end
 
-  it 'has player symbol' do
-    ai = AI.new(@ui)
-    ai.player_symbol = 'O'
-    ai.player_symbol.should == 'O'
+  context "random_move method" do
+    it "should return a move" do
+      ai = AI.new(@ui)
+      p ai.random_move(@board)
+    end
   end
 end
 
