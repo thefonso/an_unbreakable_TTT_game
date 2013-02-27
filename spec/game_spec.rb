@@ -43,8 +43,8 @@ describe 'Game class' do
       @game.board.grid[1].should == "X"
     end
   end  
-  
-  context "valid_move method" do
+
+  context "valid_move? method" do
     it 'is true if board is empty' do
       @board.grid = [
          "+", "+", "+",

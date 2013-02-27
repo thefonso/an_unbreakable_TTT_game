@@ -20,7 +20,7 @@ class Game
 
   def play_move
     #puts drawgrid
-    move = @current_player.make_move
+    move = @current_player.make_move(@board)
     @board.grid[move] = @current_player.player_symbol
     switch_players
   end

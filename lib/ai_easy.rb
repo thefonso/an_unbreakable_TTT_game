@@ -9,10 +9,10 @@ class AI
     @io = io
   end
 
-  def make_move(board)
+  def make_move
     @io.puts "AI takes move..."
-    # @io.gets.chomp.to_i
-    random_move(board)
+    @io.gets.chomp.to_i
+    # random_move(baord)
   end
 
   def random_move(board)
