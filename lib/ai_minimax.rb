@@ -7,33 +7,30 @@ module Algorithm
     include WinDetection
 
     def minmax(board,player)
-      #p 'original board '+board.grid.to_s
       allboards = score_the_boards(board, player)
-      p 'allboards '+allboards.to_s
+      # p 'allboards '+allboards.to_s
       max_board = allboards.max_by{|k,v| v}[0]
-      puts "Max board "+max_board.to_s
-
+      # p "Max board "+max_board.to_s
+      max_hash = {}
+      max_board.each_with_index{|item, index| max_hash[index] = item}
+      
+      p "max_hash "+max_hash.to_s
+      
       min_board = allboards.min_by{|k,v| v}[0]
-      puts "Min board "+min_board.to_s
+      # puts "Min board "+min_board.to_s
+      min_hash = {}
+      min_board.each_with_index{|item, index| min_hash[index] = item}
+      
+      p "min_hash "+min_hash.to_s
+      
+      answers = (max_hash.to_a - min_hash.to_a).flatten
+      p 'answers '+answers.to_s
 
-      values = (0..8).to_a
-      puts "values "+values.to_s
+      intersect = Hash[*answers.flatten]
+      p 'intersect '+intersect.to_s
 
-      max_hash = Hash[max_board.zip values]
-      puts "max_hash "+max_hash.to_s
-
-      # min_board = allboards.min_by{|k,v| v}[0]
-      # p "Min board "+min_board.to_s
-      # convert arrays to hashes?
-      #
-      # answers = (max_board - min_board).flatten
-      # p 'answers '+answers.to_s
-
-      # intersect = Hash[*answers.flatten]
-      # p 'intersect '+intersect.to_s
-
-      # p max_move = intersect.select{|k,v| v == 'O'}.keys[0]
-      #p min_move = intersect.select{|k,v| v == 'X'}.keys[0]
+      p max_move = intersect.select{|k,v| v == 'O'}.keys[0]
+      # p min_move = intersect.select{|k,v| v == 'X'}.keys[0]
     end
 
     def score_the_boards(board, player_symbol)
