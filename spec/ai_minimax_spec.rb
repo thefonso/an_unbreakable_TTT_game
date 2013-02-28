@@ -30,32 +30,28 @@ end
       @board.grid[2] = "O"
       @board.grid[3] = "+"
       @board.grid[4] = "O"
-      @board.grid[5] = "X"
-      @board.grid[6] = "O"
+      @board.grid[5] = "+"
+      @board.grid[6] = "+"
       @board.grid[7] = "O"
       @board.grid[8] = "X"
     
     end
 
     describe 'minimax' do
-      xit 'should return a symbol' do
+      it 'should return an integer' do
         @minimax.minmax(@board, @player).is_a?(Integer)
       end
     end
 
     describe 'score_the_boards(board, player)' do
-      xit 'should return a hash' do
-       @minimax.score_the_boards(@board, @player).is_a?(Hash)
-      end
-
-      xit 'should return a hash with range of answers 1000 to -1000' do
-       @minimax.score_the_boards(@board, @player).is_a?(Hash)
+      it 'should return an hash with range of answers' do
+       @minimax.score_the_boards(@board, @player).should be_a_kind_of(Hash)
       end
     end
 
     describe 'generate_boards(board, player)' do
       it 'returns an array' do
-        @minimax.generate_boards(@board, @player).is_a?(Array)
+        @minimax.generate_boards(@board, @player).should be_a_kind_of(Hash)
       end
 
       it 'holds all the boards' do
@@ -80,9 +76,10 @@ end
         # # turn is X
 
         boards = @minimax.generate_boards(@board, @player) # what follows are from this branch
-        boards.value?({:a1=>"X", :a2=>"O", :a3=>"X", :b1=>"O", :b2=>"O", :b3=>"X", :c1=>"O", :c2=>"X", :c3=>"X"})
-        boards.value?({:a1=>"X", :a2=>"X", :a3=>" ", :b1=>" ", :b2=>"O", :b3=>" ", :c1=>" ", :c2=>" ", :c3=>" "})
-        boards.value?({:a1=>"X", :a2=>" ", :a3=>" ", :b1=>" ", :b2=>"O", :b3=>" ", :c1=>" ", :c2=>" ", :c3=>"O"})
+        #p boards
+        boards.include?(["X","O","X","O","O","X","O","X","X"])
+        boards.include?(["X","X","+","+","O","+","+","+","+"])
+        boards.include?(["X","+","+","+","O","+","+","+","O"])
 
         # boards.value?("XX++O++++") # reset board then...
         # boards.value?("X+X+O++++") # reset board then...
@@ -150,8 +147,8 @@ end
     describe 'move_as_somebody(board, player, empty_space)' do
       empty_space = 2
 
-      it 'should return new board hash of hash'do
-       @minimax.move_as_somebody(@board, @player, empty_space).is_a?(Array)
+      it 'should return new board Array'do
+       @minimax.move_as_somebody(@board, @player, empty_space).grid.should be_a_kind_of(Array)
       end
 
     end

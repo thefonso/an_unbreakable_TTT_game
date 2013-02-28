@@ -1,5 +1,5 @@
 module WinDetection
-  def win?(grid, player_symbol)
+  def three_in_a_row_win?(grid, player_symbol)
     [
       [0, 1, 2],
       [0, 3, 6],
