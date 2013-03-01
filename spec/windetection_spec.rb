@@ -14,7 +14,7 @@ describe "Windetection module" do
         "+", "X", "+",
         "+", "X", "+"
       ]
-      detect.is_a_human_win(board).should be_true
+      detect.three_in_a_row_win?(board,'X').should be_true
     end
     it "detects a win for O" do
       detect  = Test_WinDetection.new
@@ -23,7 +23,7 @@ describe "Windetection module" do
         "+", "O", "+",
         "+", "O", "+"
       ]
-      detect.is_a_computer_win(board).should be_true
+      detect.three_in_a_row_win?(board,'O').should be_true
     end
 
   end

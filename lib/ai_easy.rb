@@ -12,7 +12,7 @@ class AI
   def make_move
     @io.puts "AI takes move..."
     @io.gets.chomp.to_i
-    # random_move(baord)
+    random_move(board)
   end
 
   def random_move(board)

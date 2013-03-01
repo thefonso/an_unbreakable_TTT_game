@@ -16,9 +16,14 @@ describe 'ai class' do
     end
 
     it 'should receive play from input' do
+      @board.grid = [
+        "O", "+", "+",
+        "X", "+", "+",
+        "O", "+", "+"
+      ]
       @ui.stub(:gets).and_return("1")
       ai = AI.new(@ui)
-      ai.make_move.should_not be_nil
+      ai.make_move(@board).should_not be_nil
     end
 
   end

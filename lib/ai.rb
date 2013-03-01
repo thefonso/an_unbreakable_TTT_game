@@ -1,5 +1,8 @@
+require_relative 'ai_minimax'
+
 class AI
   attr_accessor :player_symbol
+  
 
   # holds what piece it is and returns a move
   # TODO - make it so IOtower ask end user for symbol selection
@@ -11,8 +14,8 @@ class AI
 
   def make_move(board)
     @io.puts "AI takes move..."
-    # @io.gets.chomp.to_i
-    random_move(board)
+    ai = Minmax.new
+    ai.minmax(board,player_symbol)
   end
 
   def random_move(board)

@@ -7,21 +7,20 @@ class Game
   attr_reader :board
   include WinDetection
 
-  def initialize(player_1, player_2, board)
-   @board = board
+  def initialize(player_1, player_2)
    @player_1 = player_1
    @player_2 = player_2
    @current_player = @player_1
   end
   
-  def drawgrid
-    @board.printgrid
+  def drawgrid(board)
+    board.printgrid
   end
 
-  def play_move
+  def play_move(board)
     #puts drawgrid
-    move = @current_player.make_move(@board)
-    @board.grid[move] = @current_player.player_symbol
+    move = @current_player.make_move(board)
+    board.grid[move] = @current_player.player_symbol
     switch_players
   end
 
@@ -33,13 +32,13 @@ class Game
     end
   end
 
-  def valid_move?(move)
-    @board.grid[move] == '+'
+  def valid_move?(board, move)
+    board.grid[move] == '+'
   end
 
-  def over?
-    win?(@board.grid, @player_1.player_symbol) ||
-    win?(@board.grid, @player_2.player_symbol) ||
-    @board.grid.none? { |move| move == '+' }
+  def over?(board)
+    three_in_a_row_win?(board.grid, @player_1.player_symbol) ||
+    three_in_a_row_win?(board.grid, @player_2.player_symbol) ||
+    board.grid.none? { |move| move == '+' }
   end
 end

@@ -160,12 +160,6 @@ describe 'Game class' do
   end
 
  
-  
-  context "switch_players" do
-    xit "switches who the current player is" do
-    end
-  end
-
 end
 
 
