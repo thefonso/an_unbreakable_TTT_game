@@ -1,12 +1,17 @@
 ttt_new_8thlight
 ================
-new code for ttt game
+new rewritten code for ttt game
 
+rewritting the Tic Tac Toe game to reflect SOLID principles and better design pattern usage.
+
+
+Notes
+================
 What does this need to do?
 
-(imagine CLI, RAILS or Limelight sit up here, how do you write this so SOLID is in place?)
+(works from CLI,then configure for RAILS, next Limelight or QT for front-end, write this so SOLID is in place)
 
-IOtower (interface to CLI, Rails or Limelight)
+IOtower (interface to CLI, Rails or QT)
 
 game(interacts with human, ai, board)
 
