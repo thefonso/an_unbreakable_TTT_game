@@ -17,6 +17,7 @@ class Minmax
     else
       scores_hash = score_the_boards(board, player)
 
+<<<<<<< HEAD
       # puts 'scores_hash '+scores_hash.to_s
 
       max_hash = find_max_board(scores_hash)
@@ -29,6 +30,20 @@ class Minmax
 
       intersect = Hash[*answers.flatten]
       # puts 'intersect '+intersect.to_s
+=======
+      puts 'scores_hash '+scores_hash.to_s
+
+      max_hash = find_max_board(scores_hash)
+      puts 'max_hash '+max_hash.to_s
+      min_hash = find_min_board(scores_hash)
+      puts 'min_hash '+min_hash.to_s
+
+      answers = (max_hash.to_a - min_hash.to_a)
+      puts 'answers '+answers.to_s
+
+      intersect = Hash[*answers.flatten]
+      puts 'intersect '+intersect.to_s
+>>>>>>> 51f4358e50ec5beb39541272d86be12b0f6a0928
 
       max_move = intersect.select{|k,v| v == 'O'}.keys[0]
       puts 'max_move '+max_move.to_s
@@ -50,7 +65,11 @@ class Minmax
 
   def find_min_board(scores_hash)
     min_board = scores_hash.min_by{|k,v| v}[0]
+<<<<<<< HEAD
     # puts "Min board "+min_board.to_s
+=======
+    # p "Min board "+min_board.to_s
+>>>>>>> 51f4358e50ec5beb39541272d86be12b0f6a0928
     min_hash = {}
     min_board.each_with_index{|item, index| min_hash[index] = item}
 
@@ -69,6 +88,18 @@ class Minmax
     @i = 0
     test_boards_hash = {}
     test_boards_hash = generate_boards(board, player_symbol)
+<<<<<<< HEAD
+    scores_hash = {}
+    test_boards_hash.each do |_, board|
+      if three_in_a_row_win?(board, player_symbol) != nil 
+        if three_in_a_row_win?(board, 'O') == true
+          scores_hash[board] = (1000 + ply)  # plus 1 
+        elsif three_in_a_row_win?(board, 'X') == true
+          scores_hash[board] = (-1000 + ply) # minus 1
+        else
+          # do I even need the draw boards?
+          scores_hash[board] = 0
+=======
     # p "the test_boards_hash "+test_boards_hash.to_s
     scores_hash = {}
     test_boards_hash.each do |_,myboard|
@@ -81,6 +112,7 @@ class Minmax
         else
           # do I even need the draw boards?
           scores_hash[myboard] = 0
+>>>>>>> 51f4358e50ec5beb39541272d86be12b0f6a0928
         end
       else
         puts 'D R A W'
@@ -128,7 +160,11 @@ class Minmax
       generate_boards(new_board, new_player)
     end
 
+<<<<<<< HEAD
     # p @virtual_board_hash
+=======
+    # p "PING_PING"+ @virtual_board_hash.to_s
+>>>>>>> 51f4358e50ec5beb39541272d86be12b0f6a0928
     return @virtual_board_hash
   end
 
@@ -142,8 +178,43 @@ class Minmax
   def draw?(grid)
     grid.none? { |mark| mark == '+' }
   end
+<<<<<<< HEAD
 
   def switch_player(player_symbol)
     player_symbol == 'X' ? 'O' : 'X'
+=======
+
+  def switch_player(player_symbol)
+    player_symbol == 'X' ? 'O' : 'X'
+  end
+
+  def score(board, player_symbol, position)
+    newboard = move_as_somebody(board, player_symbol, position)
+    opponent = switch_player(player_symbol)
+
+    if three_in_a_row_win?(newboard.grid, player_symbol)
+      return 1
+    elsif three_in_a_row_win?(newboard.grid, opponent)
+      return -1
+    elsif draw?(newboard.grid)
+      return 0
+    end
+
+    best_score = -1
+    empty_spaces = []
+    newboard.grid.each_with_index do |mark, index|
+      if mark == '+'
+        empty_spaces << index
+      end
+    end
+
+    empty_spaces.each do |space|
+      opponent_score = score(newboard,opponent,space)
+      if opponent_score * -1 > best_score
+        best_score = opponent_score * -1
+      end
+    end
+    return best_score
+>>>>>>> 51f4358e50ec5beb39541272d86be12b0f6a0928
   end
 end

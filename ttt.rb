@@ -8,7 +8,7 @@ human.player_symbol = "X"
 ai    = AI.new
 ai.player_symbol = "O"
 @board = Board.new
-game = Game.new(ai, human)
+game = Game.new(ai, human, @board)
 
 while !game.over?(@board)
   # TODO move what this next puts statment does to IOtower.print_board(game.board.grid)
