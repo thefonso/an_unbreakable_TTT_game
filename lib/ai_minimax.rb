@@ -17,23 +17,17 @@ class Minmax
     else
       scores_hash = score_the_boards(board, player)
 
-      # puts 'scores_hash '+scores_hash.to_s
-
       max_hash = find_max_board(scores_hash)
-      # puts 'max_hash '+max_hash.to_s
       min_hash = find_min_board(scores_hash)
-      # puts 'min_hash '+min_hash.to_s
 
       answers = (max_hash.to_a - min_hash.to_a)
-      # puts 'answers '+answers.to_s
 
       intersect = Hash[*answers.flatten]
-      # puts 'intersect '+intersect.to_s
 
       max_move = intersect.select{|k,v| v == 'O'}.keys[0]
-      puts 'max_move '+max_move.to_s
-      min_move = intersect.select{|k,v| v == 'X'}.keys[0]
-      puts 'min_move '+min_move.to_s
+      #puts 'max_move '+max_move.to_s
+      #min_move = intersect.select{|k,v| v == 'X'}.keys[0]
+      #puts 'min_move '+min_move.to_s
       return max_move
     end
   end
@@ -63,10 +57,10 @@ class Minmax
     return start_moves
   end
 
-  def score_the_boards(board, player_symbol)
+  def score_the_boards(board, player_symbol, ply)
+    # TODO - make this a recursive method 
     @count = 0
     ply = 0
-    @i = 0
     test_boards_hash = {}
     test_boards_hash = generate_boards(board, player_symbol)
     # p "the test_boards_hash "+test_boards_hash.to_s
@@ -75,12 +69,12 @@ class Minmax
 
       if three_in_a_row_win?(myboard, player_symbol) != nil 
         if three_in_a_row_win?(myboard, 'O') == true
-          scores_hash[myboard] = (1000 + ply)  # plus infinity and ply level
+          scores_hash[myboard] = 1  # win
         elsif three_in_a_row_win?(myboard, 'X') == true
-          scores_hash[myboard] = (-1000 + ply) # minus infinity and ply level
+          scores_hash[myboard] = -1 # lose
         else
-          # do I even need the draw boards?
-          scores_hash[myboard] = 0
+          # do I even need the DRAW boards displayed?
+          scores_hash[myboard] = 0  # draw
         end
       else
         puts 'D R A W'
@@ -88,7 +82,7 @@ class Minmax
 
       ply -= 5
     end
-    # p scores_hash
+    p scores_hash
     return scores_hash
   end
 
@@ -101,13 +95,9 @@ class Minmax
     board_array.each_with_index{|k,v| board_to_hash[v] = k}
 
     virtual_board_hash = board_to_hash.dup
-
     # puts 'virtual_board_hash '+virtual_board_hash.to_s
-
     empty_spaces = virtual_board_hash.select{ |k,v| v == '+' }.keys
-
     # puts 'empty_spaces '+empty_spaces.to_s
-
     empty_spaces.each do |space|
 
       cloned_board = Board.new
@@ -127,7 +117,6 @@ class Minmax
       #convert hash into array
       generate_boards(new_board, new_player)
     end
-
     # p @virtual_board_hash
     return @virtual_board_hash
   end

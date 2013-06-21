@@ -32,9 +32,27 @@ describe 'Pseudo_Minimax_Ai' do
       
       @minimax.minmax(@board, @player).should == 5
     end
+
+    it 'should give a winning move' do
+      @board.grid=["O","X","+",
+                   "+","O","+",
+                   "+","+","+"]
+      
+      @minimax.minmax(@board, @player).should == 6
+    end
+
+    xit 'should block enemy move' do
+    end
+
+    xit 'should recognize a lost game' do
+    end
+
+    xit 'should recognize a draw' do
+    end
   end
 
   describe 'score_the_boards(board, player)' do
+    # TODO - need more here
     it 'should return an hash with range of answers' do
      @minimax.score_the_boards(@board, @player).should be_a_kind_of(Hash)
     end
@@ -44,7 +62,6 @@ describe 'Pseudo_Minimax_Ai' do
     it 'holds all the boards' do
       @player = "O"
       @count = 0
-      @ply = 2
       @board = Board.new
       @minimax = Minmax.new
       @minimax.i = 0

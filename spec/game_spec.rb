@@ -12,7 +12,12 @@ describe 'Game class' do
     @game.stub(:puts)
   end
 
-  
+  context "drawgrid" do
+    xit "draws a game grid" do
+      
+    end
+  end
+ 
   context "play_move" do
     it "plays a move for O" do
       @board.grid = [
@@ -43,6 +48,12 @@ describe 'Game class' do
       @game.board.grid[1].should == "X"
     end
   end  
+
+  context "switch_players method" do
+    xit "switches the current player" do
+      
+    end
+  end
 
   context "valid_move? method" do
     it 'is true if board is empty' do
