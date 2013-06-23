@@ -1,5 +1,5 @@
 module WinDetection
-  def three_in_a_row_win?(grid, player_symbol)
+  def three_in_a_row_win?(array, player_symbol)
     [
       [0, 1, 2],
       [0, 3, 6],
@@ -10,9 +10,9 @@ module WinDetection
       [3, 4, 5],
       [6, 7, 8]
     ].any? do |number_1, number_2, number_3|
-       grid[number_1] == player_symbol &&
-       grid[number_2] == player_symbol &&
-       grid[number_3] == player_symbol
+       array[number_1] == player_symbol &&
+       array[number_2] == player_symbol &&
+       array[number_3] == player_symbol
     end
   end
 end
