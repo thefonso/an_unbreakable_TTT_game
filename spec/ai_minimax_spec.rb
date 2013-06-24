@@ -52,15 +52,20 @@ describe 'Pseudo_Minimax_Ai' do
     end
   end
 
-  describe 'score_the_boards(board, player)' do
+  describe 'score_a_move(board, player, empty_space)' do
     # TODO - need more here
-    it 'should return an hash with range of answers' do
-     @minimax.score_the_boards(@board, @player).should be_a_kind_of(Hash)
+    it 'should return an interger' do
+      empty_space = 2
+      @board=["X","O","+",
+              "+","O","+",
+              "+","X","+"]
+
+     @minimax.score_a_move(@board, @player, empty_space).is_a?(Integer)
     end
   end
 
   describe 'generate_boards(board, player)' do
-    it 'holds all the boards' do
+    xit 'holds all the boards' do
       @player = "O"
       @count = 0
       @board = Board.new
