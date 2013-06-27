@@ -58,7 +58,7 @@ describe 'Pseudo_Minimax_Ai' do
       empty_space = 0
       @board=["X","O","+",
               "+","O","+",
-              "O","+","+"]
+              "X","+","+"]
 
      @minimax.score_a_move(@board, @player, empty_space).is_a?(Integer)
     end

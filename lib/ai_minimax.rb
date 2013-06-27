@@ -23,7 +23,7 @@ class Minmax
   def minmax(board, player)
 
     return first_move if first_move?(board)
-    
+
   end
 
 
@@ -33,13 +33,14 @@ class Minmax
     #score the move
     opponent = switch_player(player_symbol) 
     new_board = move_as_somebody(board, player_symbol, empty_space)
-    
+
     if three_in_a_row_win?(new_board, player_symbol)
       return 1
     elsif three_in_a_row_win?(new_board, opponent)
       return -1
     elsif draw?(new_board)
       return 0
+    else
     end
 
     #TODO 
@@ -48,7 +49,7 @@ class Minmax
     newboard_hash = Hash[(0...new_board.size).zip new_board]
     empty_spaces = newboard_hash.select{ |k,v| v == '+' }.keys 
     p "EMPTY_SPACES "+empty_spaces.to_s
-    
+
     #TODO
     #place one move from empty_spaces on the board
     #then score-that-move as a win, lose or draw... 
@@ -60,22 +61,33 @@ class Minmax
     p cloned_board
     #
     scores_hash = Hash.new
-    
+
     empty_spaces.each do |space|
-      opponent = switch_player(player_symbol) 
-      p opponent
+      #opponent = switch_player(player_symbol)
+      #p "opponent "+opponent.to_s
+      cloned_again_board = cloned_board.clone
+
       p space
       p "CLONED_BOARD with SPACE"
-      cloned_again_board = cloned_board.clone
       cloned_again_board[space] = player_symbol
       p cloned_again_board
 
+      p "ENEMY_BOARD with SPACE"
+      enemy_board = cloned_board.clone
+      enemy_board[space] = opponent
+      p enemy_board
+
+
       if three_in_a_row_win?(cloned_again_board, player_symbol)
+        p "win"
         scores_hash[space] = 1
-      elsif three_in_a_row_win?(cloned_again_board, opponent)
+      elsif three_in_a_row_win?(enemy_board, opponent)
+        p "lose"
         scores_hash[space] = -1
-      elsif draw?(new_board)
+      elsif draw?(cloned_board)
+        p "draw"
         scores_hash[space] = 0
+      else
       end
 
       #scores_hash[space] = score_a_move(cloned_again_board,player_symbol,space)
