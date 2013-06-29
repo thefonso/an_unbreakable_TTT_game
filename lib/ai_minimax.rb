@@ -28,26 +28,15 @@ class Minmax
 
 
   def score_a_move(board, player_symbol, empty_space)
-    #TODO
-    #receive a move, symbol, and location
-    #score the move
     opponent = switch_player(player_symbol) 
-    new_board = move_as_somebody(board, player_symbol, empty_space)
-
-    if three_in_a_row_win?(new_board, player_symbol)
-      return 1
-    elsif three_in_a_row_win?(new_board, opponent)
-      return -1
-    elsif draw?(new_board)
-      return 0
-    else
-    end
-
+    depth = 0
+    i=0
+    clonedboards_hash = Hash.new 
     #TODO 
     #find empty spaces on an incoming board
     #
-    newboard_hash = Hash[(0...new_board.size).zip new_board]
-    empty_spaces = newboard_hash.select{ |k,v| v == '+' }.keys 
+    board_hash = Hash[(0...board.size).zip board]
+    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
     p "EMPTY_SPACES "+empty_spaces.to_s
 
     #TODO
@@ -63,46 +52,65 @@ class Minmax
     scores_hash = Hash.new
 
     empty_spaces.each do |space|
-      #opponent = switch_player(player_symbol)
-      #p "opponent "+opponent.to_s
       cloned_again_board = cloned_board.clone
 
       p space
       p "CLONED_BOARD with SPACE"
       cloned_again_board[space] = player_symbol
       p cloned_again_board
-
+      clonedboards_hash[i] = cloned_again_board
+      
+      i += 1 
+      
       p "ENEMY_BOARD with SPACE"
       enemy_board = cloned_board.clone
       enemy_board[space] = opponent
       p enemy_board
+      clonedboards_hash[i] = enemy_board
 
-
+      i += 1 
+      
       if three_in_a_row_win?(cloned_again_board, player_symbol)
         p "win"
-        scores_hash[space] = 1
+        #scores_hash[space] = 1
+        return 1
       elsif three_in_a_row_win?(enemy_board, opponent)
         p "lose"
-        scores_hash[space] = -1
+        #scores_hash[space] = -1
+        return -1
       elsif draw?(cloned_board)
         p "draw"
-        scores_hash[space] = 0
+        #scores_hash[space] = 0
+        return 0
       else
       end
-
-      #scores_hash[space] = score_a_move(cloned_again_board,player_symbol,space)
-      #score = score_a_move(cloned_again_board,player_symbol,space)
-      #opponent_score = (score_a_move(cloned_again_board,opponent,space)*-1)
-
-      #p "MY_SCORE "+space.to_s+" "+score.to_s
-      #p "OPPONENT_SCORE "+space.to_s+" "+opponent_score.to_s
+      depth += 1
     end
 
     #TODO
-    #do the same for the opponent
-    #this is min 
+    #call score_a_move again this time record the ply(depth) 
+    #level and if a win was found
+    #....
+    #epiphany
+    #record the boards created from previous loops
+    #now you have a hash of boards
+    #if depth is larger than first loop
     #
-    p "SCORES_HASH "+scores_hash.to_s
+    # on each of the recorded boards
+    if draw?(cloned_board) == false
+      clonedboards_hash_values = clonedboards_hash.select{|k,v| v}.values
+      # p clonedboards_hash_values.to_s
+      clonedboards_hash_values.each do |board_again|
+        if score_a_move(board_again, player_symbol, empty_space) = 1
+          scores_hash = {depth => empty_space}
+        elsif score_a_move(board_again, player_symbol, empty_space) = -1
+          scores_hash = {depth => empty_space}
+        end
+      end
+    elsif draw?(cloned_board) == true
+      p "SCORES_HASH "+scores_hash.to_s
+    end
+    # p "BOARDS_HASH "+clonedboards_hash.to_s
     #return scores_hash
   end
 

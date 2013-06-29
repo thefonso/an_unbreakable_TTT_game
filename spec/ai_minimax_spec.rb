@@ -54,7 +54,7 @@ describe 'Pseudo_Minimax_Ai' do
 
   describe 'score_a_move(board, player, empty_space)' do
     # TODO - need more here
-    it 'should return an interger' do
+    xit 'should return an interger' do
       empty_space = 0
       @board=["X","O","+",
               "+","O","+",
@@ -62,6 +62,16 @@ describe 'Pseudo_Minimax_Ai' do
 
      @minimax.score_a_move(@board, @player, empty_space).is_a?(Integer)
     end
+    it 'should return a winning move' do
+      empty_space = 0
+      @board=["X","O","+",
+              "+","O","+",
+              "+","X","+"]
+
+     @minimax.score_a_move(@board, @player, empty_space).is_a?(Integer)
+    end
+
+
   end
 
   describe 'generate_boards(board, player)' do
