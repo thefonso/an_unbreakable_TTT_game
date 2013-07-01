@@ -72,46 +72,26 @@ class Minmax
       
       if three_in_a_row_win?(cloned_again_board, player_symbol)
         p "win"
-        #scores_hash[space] = 1
-        return 1
+        scores_hash[space] = 1
+        board = cloned_again_board
+        #return 1
       elsif three_in_a_row_win?(enemy_board, opponent)
         p "lose"
-        #scores_hash[space] = -1
-        return -1
+        scores_hash[space] = -1
+        board = enemy_board
+        #return -1
       elsif draw?(cloned_board)
-        p "draw"
-        #scores_hash[space] = 0
-        return 0
-      else
+        p "DRAW"
       end
+    end
+   # depth += 1
+
+    if draw?(cloned_board) != true  
+      score_a_move(board, player_symbol, opponent)
       depth += 1
+      p "SCORES_HASH"+scores_hash.to_s+"  DEPTH "+depth.to_s
     end
 
-    #TODO
-    #call score_a_move again this time record the ply(depth) 
-    #level and if a win was found
-    #....
-    #epiphany
-    #record the boards created from previous loops
-    #now you have a hash of boards
-    #if depth is larger than first loop
-    #
-    # on each of the recorded boards
-    if draw?(cloned_board) == false
-      clonedboards_hash_values = clonedboards_hash.select{|k,v| v}.values
-      # p clonedboards_hash_values.to_s
-      clonedboards_hash_values.each do |board_again|
-        if score_a_move(board_again, player_symbol, empty_space) = 1
-          scores_hash = {depth => empty_space}
-        elsif score_a_move(board_again, player_symbol, empty_space) = -1
-          scores_hash = {depth => empty_space}
-        end
-      end
-    elsif draw?(cloned_board) == true
-      p "SCORES_HASH "+scores_hash.to_s
-    end
-    # p "BOARDS_HASH "+clonedboards_hash.to_s
-    #return scores_hash
   end
 
   def move_as_somebody(board, player, empty_space)
