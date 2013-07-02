@@ -29,7 +29,7 @@ class Minmax
 
   def score_a_move(board, player_symbol, empty_space)
     opponent = switch_player(player_symbol) 
-    depth = 0
+    depth = 1
     i=0
     clonedboards_hash = Hash.new 
     #TODO 
@@ -44,6 +44,7 @@ class Minmax
     #then score-that-move as a win, lose or draw... 
     #...and place that as a name => value into a hash
     #then reset the board and place the next move on the board 
+
     cloned_board = Board.new
     cloned_board = board.clone
     p "ORIGINAL_BOARD"
@@ -71,27 +72,25 @@ class Minmax
       i += 1 
       
       if three_in_a_row_win?(cloned_again_board, player_symbol)
-        p "win"
-        scores_hash[space] = 1
-        board = cloned_again_board
+        scores_hash[1] = space
         #return 1
+
       elsif three_in_a_row_win?(enemy_board, opponent)
         p "lose"
-        scores_hash[space] = -1
-        board = enemy_board
+        scores_hash[-1] = space
+        cloned_board = enemy_board
         #return -1
+        p "CLONED_BOARD"+cloned_board.to_s
+
       elsif draw?(cloned_board)
         p "DRAW"
       end
     end
-   # depth += 1
-
-    if draw?(cloned_board) != true  
-      score_a_move(board, player_symbol, opponent)
-      depth += 1
+    depth += 1
+    if scores_hash.max != nil
       p "SCORES_HASH"+scores_hash.to_s+"  DEPTH "+depth.to_s
+      p "MAX move "+scores_hash.max.last.to_s
     end
-
   end
 
   def move_as_somebody(board, player, empty_space)
