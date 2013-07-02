@@ -26,7 +26,7 @@ describe 'Pseudo_Minimax_Ai' do
     end
 
     xit 'should defend against a split' do
-      @board.grid=["X","O","+",
+           @board=["X","O","+",
                    "+","O","+",
                    "+","X","+"]
       
@@ -34,7 +34,7 @@ describe 'Pseudo_Minimax_Ai' do
     end
 
     xit 'should give a winning move' do
-      @board.grid=["O","X","+",
+           @board=["O","X","+",
                    "+","O","+",
                    "+","+","+"]
       

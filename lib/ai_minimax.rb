@@ -17,12 +17,20 @@ class Minmax
   end
 
   def first_move?(board)
-    board.grid == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
+    board == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
   end
 
   def minmax(board, player)
 
     return first_move if first_move?(board)
+    
+    board_hash = Hash[(0...board.size).zip board]
+    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
+    p "EMPTY_SPACES "+empty_spaces.to_s
+    
+    empty_spaces.each do |space|
+      score_a_move(board, player, space)
+    end
 
   end
 
@@ -90,6 +98,7 @@ class Minmax
     if scores_hash.max != nil
       p "SCORES_HASH"+scores_hash.to_s+"  DEPTH "+depth.to_s
       p "MAX move "+scores_hash.max.last.to_s
+      p "MIN move "+scores_hash.min.last.to_s
     end
   end
 
