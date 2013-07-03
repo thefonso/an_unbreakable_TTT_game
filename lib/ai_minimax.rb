@@ -22,6 +22,7 @@ class Minmax
 
   def minmax(board, player)
 
+    opponent = switch_player(player) 
     return first_move if first_move?(board)
 
     depth = 1
@@ -33,7 +34,7 @@ class Minmax
 
     cloned_board = Board.new
     cloned_board = board.grid.clone
-    
+# binding.pry
     # scores_hash = Hash.new
 
     if draw?(cloned_board)
@@ -42,7 +43,7 @@ class Minmax
       empty_spaces.each do |space|
         if score_a_move(cloned_board, player, space) == 1
           return space
-        elsif score_a_move(cloned_board, player, space) == -1
+        elsif score_a_move(cloned_board, opponent, space) == 1
           return space
         end
       end
@@ -52,32 +53,33 @@ class Minmax
 
 
   def score_a_move(board, player_symbol, empty_space)
-    opponent = switch_player(player_symbol) 
-    # depth = 1
-    i=0
-    clonedboards_hash = Hash.new 
-
-    board_hash = Hash[(0...board.size).zip board]
-    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-
-    cloned_board = Board.new
-    cloned_board = board.clone
-
-    # scores_hash = Hash.new
-
-    if draw?(cloned_board)
-      return 0
-    else
-      empty_spaces.each do |space|
+      opponent = switch_player(player_symbol) 
+      # depth = 1
+      i=0
+      clonedboards_hash = Hash.new 
+# 
+#     board_hash = Hash[(0...board.size).zip board]
+#     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
+# 
+#     cloned_board = Board.new
+#     cloned_board = board.clone
+# 
+#     # scores_hash = Hash.new
+# 
+#     if draw?(cloned_board)
+#       return 0
+#     else
+#       empty_spaces.each do |space|
         cloned_again_board = board.clone
-        cloned_again_board[space] = player_symbol
+        cloned_again_board[empty_space] = player_symbol
         clonedboards_hash[i] = cloned_again_board
-
+        
         i += 1 
         
         enemy_board = board.clone
-        enemy_board[space] = opponent
+        enemy_board[empty_space] = opponent
         clonedboards_hash[i] = enemy_board
+#binding.pry
 
         i += 1 
         
@@ -90,8 +92,8 @@ class Minmax
           return -1
         end
 
-      end
-    end
+    #   end
+    # end
 
     #depth += 1
 
