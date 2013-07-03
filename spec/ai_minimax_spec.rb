@@ -16,62 +16,81 @@ describe 'Pseudo_Minimax_Ai' do
   end
 
   describe 'minmax' do
-    xit 'should return an integer' do
-      @minimax.minmax(@board, @player).is_a?(Integer)
-    end
 
-    xit 'should take optimal first move' do
+    it 'should take optimal first move' do
       @board.stub(:available_spaces).and_return(["+", "+", "+", "+", "+", "+", "+", "+", "+"])
       @minimax.first_move.should satisfy {|s| [0,2,4,6,8].include?(s)}
     end
 
-    xit 'should defend against a split' do
-           @board=["X","O","+",
-                   "+","O","+",
-                   "+","X","+"]
-      
-      @minimax.minmax(@board, @player).should == (6 || 3)
-    end
-
-    xit 'should give a winning move' do
-           @board=["O","X","+",
-                   "+","O","+",
+    it 'should give a winning move' do
+      @board.grid=["X","X","+",
+                   "+","+","+",
                    "+","+","+"]
       
-      @minimax.minmax(@board, @player).should == 8
+      @minimax.minmax(@board, @player).should == 2
     end
 
+    it 'should return a blocking move' do
+      @board.grid=["O","+","+",
+                   "+","O","+",
+                   "+","+","+"]
 
-    xit 'should block enemy move' do
-    end
-
-    xit 'should recognize a lost game' do
+     @minimax.minmax(@board, @player).should == 8
     end
 
     xit 'should recognize a draw' do
+      @board.grid=["O","O","X",
+                   "X","X","O",
+                   "O","X","X"]
+
+     @minimax.minmax(@board, @player).should == 0
     end
+
+    xit 'should defend against a split' do
+      @board.grid=["X","O","+",
+                   "+","O","+",
+                   "+","X","+"]
+      
+      @minimax.minmax(@board, @player).should == 3
+    end
+
   end
 
   describe 'score_a_move(board, player, empty_space)' do
     # TODO - need more here
-    it 'should return an interger' do
+    it 'should return a win move' do
+      empty_space = 0
+      @board=["X","X","+",
+              "+","+","+",
+              "+","+","+"]
+
+     @minimax.score_a_move(@board, @player, empty_space).should == 1
+    end
+
+    it 'should return a lose move' do
+      empty_space = 0
+      @board=["O","O","+",
+              "+","+","+",
+              "+","+","+"]
+
+     @minimax.score_a_move(@board, @player, empty_space).should == -1
+    end
+    it 'should return a draw' do
       empty_space = 0
       @board=["X","O","X",
-              "+","O","X",
-              "X","+","O"]
+              "X","O","O",
+              "O","X","X"]
 
-     @minimax.score_a_move(@board, @player, empty_space).is_a?(Integer)
+     @minimax.score_a_move(@board, @player, empty_space).should == 0
     end
-    xit 'should return a winning move' do
+    xit 'should defend a split' do
       empty_space = 0
-      @board=["X","O","+",
-              "+","O","+",
-              "+","X","+"]
+      @board.grid=["X","O","+",
+                   "+","O","+",
+                   "+","X","+"]
 
-     @minimax.score_a_move(@board, @player, empty_space).is_a?(Integer)
+     @minimax.score_a_move(@board, @player, empty_space).should == 3
     end
-
-
   end
 
   describe 'generate_boards(board, player)' do

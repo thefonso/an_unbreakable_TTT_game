@@ -17,19 +17,35 @@ class Minmax
   end
 
   def first_move?(board)
-    board == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
+    board.grid == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
   end
 
   def minmax(board, player)
 
     return first_move if first_move?(board)
-    
-    board_hash = Hash[(0...board.size).zip board]
+
+    depth = 1
+    #i=0
+    #clonedboards_hash = Hash.new 
+
+    board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-    p "EMPTY_SPACES "+empty_spaces.to_s
+
+    cloned_board = Board.new
+    cloned_board = board.grid.clone
     
-    empty_spaces.each do |space|
-      score_a_move(board, player, space)
+    # scores_hash = Hash.new
+
+    if draw?(cloned_board)
+      return 0
+    else
+      empty_spaces.each do |space|
+        if score_a_move(cloned_board, player, space) == 1
+          return space
+        elsif score_a_move(cloned_board, player, space) == -1
+          return space
+        end
+      end
     end
 
   end
@@ -37,69 +53,60 @@ class Minmax
 
   def score_a_move(board, player_symbol, empty_space)
     opponent = switch_player(player_symbol) 
-    depth = 1
+    # depth = 1
     i=0
     clonedboards_hash = Hash.new 
-    #TODO 
-    #find empty spaces on an incoming board
-    #
+
     board_hash = Hash[(0...board.size).zip board]
     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-    p "EMPTY_SPACES "+empty_spaces.to_s
-
-    #TODO
-    #place one move from empty_spaces on the board
-    #then score-that-move as a win, lose or draw... 
-    #...and place that as a name => value into a hash
-    #then reset the board and place the next move on the board 
 
     cloned_board = Board.new
     cloned_board = board.clone
-    p "ORIGINAL_BOARD"
-    p cloned_board
-    #
-    scores_hash = Hash.new
 
-    empty_spaces.each do |space|
-      cloned_again_board = cloned_board.clone
+    # scores_hash = Hash.new
 
-      p space
-      p "CLONED_BOARD with SPACE"
-      cloned_again_board[space] = player_symbol
-      p cloned_again_board
-      clonedboards_hash[i] = cloned_again_board
-      
-      i += 1 
-      
-      p "ENEMY_BOARD with SPACE"
-      enemy_board = cloned_board.clone
-      enemy_board[space] = opponent
-      p enemy_board
-      clonedboards_hash[i] = enemy_board
+    if draw?(cloned_board)
+      return 0
+    else
+      empty_spaces.each do |space|
+        cloned_again_board = board.clone
+        cloned_again_board[space] = player_symbol
+        clonedboards_hash[i] = cloned_again_board
 
-      i += 1 
-      
-      if three_in_a_row_win?(cloned_again_board, player_symbol)
-        scores_hash[1] = space
-        #return 1
+        i += 1 
+        
+        enemy_board = board.clone
+        enemy_board[space] = opponent
+        clonedboards_hash[i] = enemy_board
 
-      elsif three_in_a_row_win?(enemy_board, opponent)
-        p "lose"
-        scores_hash[-1] = space
-        cloned_board = enemy_board
-        #return -1
-        p "CLONED_BOARD"+cloned_board.to_s
+        i += 1 
+        
+        if three_in_a_row_win?(cloned_again_board, player_symbol)
+          # scores_hash[1] = space
+          return 1
 
-      elsif draw?(cloned_board)
-        p "DRAW"
+        elsif three_in_a_row_win?(enemy_board, opponent)
+          # scores_hash[-1] = space
+          return -1
+        end
+
       end
     end
-    depth += 1
-    if scores_hash.max != nil
-      p "SCORES_HASH"+scores_hash.to_s+"  DEPTH "+depth.to_s
-      p "MAX move "+scores_hash.max.last.to_s
-      p "MIN move "+scores_hash.min.last.to_s
-    end
+
+    #depth += 1
+
+    #TODO
+    #How do I get this recursion going?
+
+    # if scores_hash.max != nil
+    #   #p "SCORES_HASH"+scores_hash.to_s+"  DEPTH "+depth.to_s
+    #   return scores_hash.max.last
+    # else
+    #   clonedboards_hash.first do |key,secondboard|
+    #     #p "SECONDBOARD"+secondboard.to_s
+    #     score_a_move(secondboard, player_symbol, empty_space)
+    #   end
+    # end
   end
 
   def move_as_somebody(board, player, empty_space)
