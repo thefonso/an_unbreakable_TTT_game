@@ -34,7 +34,7 @@ class Minmax
 
     cloned_board = Board.new
     cloned_board = board.grid.clone
-# binding.pry
+    # binding.pry
     # scores_hash = Hash.new
 
     if draw?(cloned_board)
@@ -53,47 +53,33 @@ class Minmax
 
 
   def score_a_move(board, player_symbol, empty_space)
-      opponent = switch_player(player_symbol) 
-      # depth = 1
-      i=0
-      clonedboards_hash = Hash.new 
-# 
-#     board_hash = Hash[(0...board.size).zip board]
-#     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-# 
-#     cloned_board = Board.new
-#     cloned_board = board.clone
-# 
-#     # scores_hash = Hash.new
-# 
-#     if draw?(cloned_board)
-#       return 0
-#     else
-#       empty_spaces.each do |space|
-        cloned_again_board = board.clone
-        cloned_again_board[empty_space] = player_symbol
-        clonedboards_hash[i] = cloned_again_board
-        
-        i += 1 
-        
-        enemy_board = board.clone
-        enemy_board[empty_space] = opponent
-        clonedboards_hash[i] = enemy_board
-#binding.pry
+    opponent = switch_player(player_symbol) 
+    # depth = 1
+    i=0
+    clonedboards_hash = Hash.new 
 
-        i += 1 
-        
-        if three_in_a_row_win?(cloned_again_board, player_symbol)
-          # scores_hash[1] = space
-          return 1
+    cloned_again_board = board.clone
+    cloned_again_board[empty_space] = player_symbol
+    clonedboards_hash[i] = cloned_again_board
 
-        elsif three_in_a_row_win?(enemy_board, opponent)
-          # scores_hash[-1] = space
-          return -1
-        end
+    i += 1 
 
-    #   end
-    # end
+    enemy_board = board.clone
+    enemy_board[empty_space] = opponent
+    clonedboards_hash[i] = enemy_board
+    #binding.pry
+
+    i += 1 
+
+    if three_in_a_row_win?(cloned_again_board, player_symbol)
+      # scores_hash[1] = space
+      return 1
+
+    elsif three_in_a_row_win?(enemy_board, opponent)
+      # scores_hash[-1] = space
+      return -1
+    end
+
 
     #depth += 1
 
