@@ -24,15 +24,10 @@ class Minmax
 
     return first_move if first_move?(board)
   
-    
     opponent = switch_player(player)
     clonedboards_hash = Hash.new 
-
-    cloned_board = Board.new
-    cloned_board = board.grid.clone
-    # binding.pry
-
-    if draw?(cloned_board)
+ 
+    if draw?(board.grid)
       return 0
     else
       i=0
@@ -48,9 +43,9 @@ class Minmax
 
         i += 1 
 
-        if score_a_move(cloned_board, player, space) == 1
+        if score_a_move(board.grid, player, space) == 1
           return space
-        elsif score_a_move(cloned_board, opponent, space) == 1
+        elsif score_a_move(board.grid, opponent, space) == 1
           return space
         else
         end
@@ -58,12 +53,7 @@ class Minmax
       end
       ply_depth += 1
 
-      #binding.pry
       clonedboards_hash.each do |key,nextlevel_board|
-        #TODO
-        # How do I get this recursion going?
-        # parts of equation...ply_depth, score_a_move, clonedboards_hash
-        #
         # Q.what is base case?
         # A.score_a_move() == 1
         board_hash = Hash[(0...nextlevel_board.size).zip nextlevel_board]
