@@ -23,8 +23,8 @@ class Minmax
   def minmax(board, player)
 
     return first_move if first_move?(board)
-    i=0
-    ply_depth = 0
+  
+    
     opponent = switch_player(player)
     clonedboards_hash = Hash.new 
 
@@ -33,24 +33,18 @@ class Minmax
 
     cloned_board = Board.new
     cloned_board = board.grid.clone
-    #    binding.pry
+    # binding.pry
 
     if draw?(cloned_board)
       return 0
     else
-
+      i=0
+      ply_depth = 0
       empty_spaces.each do |space|
 
         cloned_again_board = board.grid.clone
-        cloned_again_board[space] = player
+        cloned_again_board[space] = switch_player(player)
         clonedboards_hash[i] = cloned_again_board
-
-        i += 1 
-
-        enemy_board = board.grid.clone
-        enemy_board[space] = opponent
-        clonedboards_hash[i] = enemy_board
-        #        binding.pry
 
         i += 1 
 
