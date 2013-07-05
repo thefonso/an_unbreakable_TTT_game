@@ -17,7 +17,7 @@ class Minmax
   end
 
   def first_move?(board)
-    board.grid == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
+    board == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
   end
 
   def minmax(board, player)
@@ -28,13 +28,12 @@ class Minmax
     opponent = switch_player(player)
     clonedboards_hash = Hash.new 
 
-
     board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
 
     cloned_board = Board.new
     cloned_board = board.grid.clone
-    # binding.pry
+    #    binding.pry
 
     if draw?(cloned_board)
       return 0
@@ -51,7 +50,7 @@ class Minmax
         enemy_board = board.grid.clone
         enemy_board[space] = opponent
         clonedboards_hash[i] = enemy_board
-        #binding.pry
+        #        binding.pry
 
         i += 1 
 
@@ -74,8 +73,18 @@ class Minmax
         #
         # Q.what is base case?
         # A.score_a_move() == 1
-        minmax(nextlevel_board,player)
+        board_hash = Hash[(0...nextlevel_board.size).zip nextlevel_board]
+        empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
+        empty_spaces.each do |space|
 
+          if score_a_move(nextlevel_board, player, space) == 1
+            return space
+          elsif score_a_move(nextlevel_board, opponent, space) == 1
+            return space
+          else
+          end
+
+        end
       end
     end
   end

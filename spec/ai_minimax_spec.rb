@@ -17,12 +17,12 @@ describe 'Pseudo_Minimax_Ai' do
 
   describe 'minmax' do
 
-    xit 'should take optimal first move' do
+    it 'should take optimal first move' do
       @board.stub(:available_spaces).and_return(["+", "+", "+", "+", "+", "+", "+", "+", "+"])
       @minimax.first_move.should satisfy {|s| [0,2,4,6,8].include?(s)}
     end
 
-    xit 'should give a winning move' do
+    it 'should give a winning move' do
       @board.grid=["X","+","+",
                    "+","+","+",
                    "+","+","X"]
@@ -30,7 +30,7 @@ describe 'Pseudo_Minimax_Ai' do
       @minimax.minmax(@board, @player).should == 4
     end
 
-    xit 'should return a blocking move' do
+    it 'should return a blocking move' do
       @board.grid=["O","+","+",
                    "+","O","+",
                    "+","+","+"]
@@ -38,7 +38,7 @@ describe 'Pseudo_Minimax_Ai' do
      @minimax.minmax(@board, @player).should == 8
     end
 
-    xit 'should recognize a draw' do
+    it 'should recognize a draw' do
       @board.grid=["O","O","X",
                    "X","X","O",
                    "O","X","X"]
@@ -51,7 +51,7 @@ describe 'Pseudo_Minimax_Ai' do
                    "+","X","+",
                    "+","O","+"]
       
-      @minimax.minmax(@board, @player).should == 3
+      @minimax.minmax(@board, @player).should == 6
     end
 
   end
