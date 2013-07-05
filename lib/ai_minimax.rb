@@ -28,9 +28,6 @@ class Minmax
     opponent = switch_player(player)
     clonedboards_hash = Hash.new 
 
-    board_hash = Hash[(0...board.grid.size).zip board.grid]
-    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-
     cloned_board = Board.new
     cloned_board = board.grid.clone
     # binding.pry
@@ -40,6 +37,9 @@ class Minmax
     else
       i=0
       ply_depth = 0
+
+      board_hash = Hash[(0...board.grid.size).zip board.grid]
+      empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
       empty_spaces.each do |space|
 
         cloned_again_board = board.grid.clone
@@ -59,8 +59,7 @@ class Minmax
       ply_depth += 1
 
       #binding.pry
-      clonedboards_hash.each do |key,nextlevel|
-        nextlevel_board = nextlevel
+      clonedboards_hash.each do |key,nextlevel_board|
         #TODO
         # How do I get this recursion going?
         # parts of equation...ply_depth, score_a_move, clonedboards_hash
