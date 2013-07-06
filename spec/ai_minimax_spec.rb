@@ -74,6 +74,15 @@ describe 'Pseudo_Minimax_Ai' do
 
      @minimax.score_a_move(@board, @player, empty_space).should == -1
     end
+    it 'should return a draw' do
+      empty_space = 2
+      @board=["O","X","+",
+              "+","+","+",
+              "+","+","+"]
+
+     @minimax.score_a_move(@board, @player, empty_space).should == 0
+    end
+
   end
 
 

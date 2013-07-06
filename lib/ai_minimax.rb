@@ -37,19 +37,20 @@ class Minmax
       empty_spaces.each do |space|
 
         #TODO
-        #clone the board
-        #place move on board
-        #return board
+        #
+        #find ply_depth
+        # run next line if ply > 0
+        #
         #cloned_again_board = generate_nextboard(cloned_board, switch_player(player))
 
         #binding.pry
 
-        if score_a_move(cloned_board, player, space) == 1
+        if score_a_move(cloned_board.grid, player, space) == 1
           return space
-        elsif score_a_move(cloned_board, opponent, space) == -1
+        elsif score_a_move(cloned_board.grid, opponent, space) == 1
           return space
         else
-          #minmax(cloned_again_board, player)
+         # minmax(cloned_again_board, player)
         end
         i += 1
       end
