@@ -94,5 +94,11 @@ describe 'Pseudo_Minimax_Ai' do
      @minimax.move_as_somebody(@board, @player, empty_space).grid.should be_a_kind_of(Array)
     end
   end
+
+  describe 'look_ahead(board,player)' do
+    it 'should generate all possible boards'do
+      @minimax.look_ahead(@boards, @player).should == 
+    end
+  end
 end
 
