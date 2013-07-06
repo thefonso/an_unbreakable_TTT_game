@@ -95,9 +95,37 @@ describe 'Pseudo_Minimax_Ai' do
     end
   end
 
-  describe 'look_ahead(board,player)' do
-    it 'should generate all possible boards'do
-      @minimax.look_ahead(@boards, @player).should == 
+  describe 'generate_nextboard(board, player)' do
+    it 'should clone a board, place a move on it and return the new board'do
+
+      @board.grid=["X","O","O",
+                   "O","O","X",
+                   "X","+","+"]
+
+      boards = @minimax.generate_nextboard(@board, @player)
+      boards.grid.include?(["X","O","O","O","O","X","X","O","+"]).should be_true
+    end
+  end
+
+  describe 'generate_boards(board, player)' do
+    xit 'holds all the boards' do
+      @player = "O"
+      @count = 0
+      @ply = 2
+      @board = Board.new
+      @minimax = Minmax.new
+      @minimax.i = 0
+
+      @board.grid=["X","O","O",
+                   "O","O","X",
+                   "X","+","+"]
+
+      boards = @minimax.generate_boards(@board, @player)
+
+      boards.values.include?(["X","O","O","O","O","X","X","X","+"]).should be_true
+      boards.values.include?(["X","O","O","O","O","X","X","X","O"]).should be_true
+      boards.values.include?(["X","O","O","O","O","X","X","+","X"]).should be_true
+      boards.values.include?(["X","O","O","O","O","X","X","O","X"]).should be_true
     end
   end
 end

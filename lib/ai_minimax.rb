@@ -77,14 +77,20 @@ class Minmax
     return board
   end
   
-  def look_ahead(board,player)
+  def generate_nextboard(board,player)
+    cloned_board = board.clone
+    cloned_again_board = Board.new
     cloned_hash = Hash.new
-
-    board_hash = Hash[(0...board.grid.size).zip board.grid]
+    board_hash = Hash[(0...cloned_board.grid.size).zip cloned_board.grid]
     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
+    binding.pry
+
     empty_spaces.each do |space|
       cloned_again_board = move_as_somebody(cloned_board, switch_player(player), space)
+      binding.pry
     end
+
+    return cloned_again_board
   end
 
   def draw?(board)
