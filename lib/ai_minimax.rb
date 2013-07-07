@@ -21,38 +21,32 @@ class Minmax
   end
 
   def minmax(board, player)
+    
+    cloned_board = board.clone
 
     return first_move if first_move?(board)
-
-    cloned_board = board.clone
-    #binding.pry 
-    opponent = switch_player(player)
-
+    
     if draw?(board)
       return 0
     else
-      i=0
+      
       board_hash = Hash[(0...board.grid.size).zip board.grid]
       empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
+      # binding.pry
+
       empty_spaces.each do |space|
 
-        #TODO
-        #
-        #find ply_depth
-        # run next line if ply > 0
-        #
-        #cloned_again_board = generate_nextboard(cloned_board, switch_player(player))
-
-        #binding.pry
+      cloned_again_board = board.clone
+      cloned_again_board.grid[space] = player
+      # binding.pry
 
         if score_a_move(cloned_board.grid, player, space) == 1
           return space
-        elsif score_a_move(cloned_board.grid, opponent, space) == 1
+        elsif score_a_move(cloned_board.grid, player, space) == -1
           return space
-        else
-         # minmax(cloned_again_board, player)
+        elsif score_a_move(cloned_again_board.grid, player, space) == 0
+          minmax(cloned_again_board, player)
         end
-        i += 1
       end
 
     end
@@ -66,7 +60,6 @@ class Minmax
     enemy_board = board.clone
     enemy_board[empty_space] = opponent
 
-    #binding.pry
     if three_in_a_row_win?(cloned_again_board, player_symbol)
       return 1
     elsif three_in_a_row_win?(enemy_board, opponent)
@@ -74,7 +67,6 @@ class Minmax
     else
       return 0
     end
-
   end
 
   def move_as_somebody(board, player, empty_space)
@@ -82,12 +74,11 @@ class Minmax
     @i+=1 # TODO forgot why this is here....why is this here?
     return board
   end
-  
+
   def generate_nextboard(board,player)
     cloned_board = board.clone
     space = nil
     cloned_again_board = Board.new
-    cloned_hash = Hash.new
     board_hash = Hash[(0...cloned_board.grid.size).zip cloned_board.grid]
     empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
     #binding.pry

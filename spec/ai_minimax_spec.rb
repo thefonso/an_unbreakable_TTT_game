@@ -23,9 +23,9 @@ describe 'Pseudo_Minimax_Ai' do
     end
 
     it 'should give a winning move' do
-      @board.grid=["X","+","+",
-                   "+","+","+",
-                   "+","+","X"]
+      @board.grid=["X","O","O",
+                   "O","+","X",
+                   "+","O","X"]
       
       @minimax.minmax(@board, @player).should == 4
     end
