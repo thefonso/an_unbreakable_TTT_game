@@ -23,9 +23,9 @@ describe 'Pseudo_Minimax_Ai' do
     end
 
     it 'should give a winning move' do
-      @board.grid=["X","O","O",
-                   "O","+","X",
-                   "+","O","X"]
+      @board.grid=["X","+","+",
+                   "+","+","+",
+                   "+","+","X"]
       
       @minimax.minmax(@board, @player).should == 4
     end
@@ -36,14 +36,6 @@ describe 'Pseudo_Minimax_Ai' do
                    "+","+","+"]
 
      @minimax.minmax(@board, @player).should == 8
-    end
-
-    it 'should recognize a draw' do
-      @board.grid=["O","O","X",
-                   "X","X","O",
-                   "O","X","X"]
-
-     @minimax.minmax(@board, @player).should == 0
     end
 
     it 'should defend against a split' do
@@ -76,9 +68,9 @@ describe 'Pseudo_Minimax_Ai' do
     end
     it 'should return a draw' do
       empty_space = 2
-      @board=["O","X","+",
-              "+","+","+",
-              "+","+","+"]
+      @board=["O","X","X",
+              "X","O","O",
+              "X","O","X"]
 
      @minimax.score_a_move(@board, @player, empty_space).should == 0
     end

@@ -21,56 +21,69 @@ class Minmax
   end
 
   def minmax(board, player)
-    
+
     cloned_board = board.clone
 
     return first_move if first_move?(board)
-    
-    if draw?(board)
-      return 0
-    else
-      
-      board_hash = Hash[(0...board.grid.size).zip board.grid]
-      empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-      # binding.pry
 
-      empty_spaces.each do |space|
+    cloned_boards_hash = Hash.new
 
-      cloned_again_board = board.clone
-      cloned_again_board.grid[space] = player
-      # binding.pry
+    board_hash = Hash[(0...board.grid.size).zip board.grid]
+    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
+#    binding.pry
+    #
+    opponent = switch_player(player)
 
-        if score_a_move(cloned_board.grid, player, space) == 1
-          return space
-        elsif score_a_move(cloned_board.grid, player, space) == -1
-          return space
-        elsif score_a_move(cloned_again_board.grid, player, space) == 0
-          minmax(cloned_again_board, player)
-        end
+    empty_spaces.each do |space|
+      if score_a_move(cloned_board.grid, player, space ) == 1
+        return space
+      elsif score_a_move(cloned_board.grid, opponent, space ) == 1
+        return space
       end
-
     end
   end
 
   def score_a_move(board, player_symbol, empty_space)
     opponent = switch_player(player_symbol)
+    cloned_boards_hash = Hash.new
 
+    i=0
     cloned_again_board = board.clone
     cloned_again_board[empty_space] = player_symbol
+    cloned_boards_hash[i] = cloned_again_board
+
     enemy_board = board.clone
     enemy_board[empty_space] = opponent
+    cloned_boards_hash[i+=1] = enemy_board
+    #binding.pry
+
+    #TODO create look ahead
+    #look_ahead_board = move_as_somebody(board,player_symbol,empty_space)
+    board_hash = Hash[(0...enemy_board.size).zip enemy_board]
+    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
 
     if three_in_a_row_win?(cloned_again_board, player_symbol)
       return 1
     elsif three_in_a_row_win?(enemy_board, opponent)
       return -1
-    else
+    elsif draw?(board)
       return 0
+    else
+      empty_spaces.each do |space|
+        look_ahead_score = score_a_move(enemy_board, opponent, space)
+        #binding.pry
+        if look_ahead_score == 1
+          return look_ahead_score
+        elsif look_ahead_score == -1
+          look_ahead_score = look_ahead_score * -1
+          return look_ahead_score
+        end
+      end
     end
   end
 
   def move_as_somebody(board, player, empty_space)
-    board.grid[empty_space] = player
+    board[empty_space] = player
     @i+=1 # TODO forgot why this is here....why is this here?
     return board
   end
@@ -92,7 +105,7 @@ class Minmax
 
   def draw?(board)
     # binding.pry
-    board_array = board.grid
+    board_array = board
     board_array.none? { |mark| mark == '+' }
   end
 
