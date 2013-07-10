@@ -23,56 +23,68 @@ describe 'Pseudo_Minimax_Ai' do
     end
 
     it 'should give a winning move' do
-      @board.grid=["X","+","+",
-                   "+","+","+",
-                   "+","+","X"]
-      
+      @board=["X","+","+",
+              "+","+","+",
+              "+","+","X"]
+
       @minimax.minmax(@board, @player).should == 4
     end
 
     it 'should return a blocking move' do
-      @board.grid=["O","+","+",
-                   "+","O","+",
-                   "+","+","+"]
+      @board=["O","+","+",
+              "+","O","+",
+              "+","+","+"]
 
-     @minimax.minmax(@board, @player).should == 8
+      @minimax.minmax(@board, @player).should == 8
     end
 
     it 'should defend against a split' do
-      @board.grid=["O","X","+",
-                   "+","X","+",
-                   "+","O","+"]
-      
-      @minimax.minmax(@board, @player).should == 3
+      @board=["O","X","+",
+              "+","X","+",
+              "+","O","+"]
+
+      @minimax.minmax(@board, @player).should == 6
+    end
+    xit 'should return the word DRAW' do
+      @board.grid=["O","X","X",
+                   "O","O","X",
+                   "X","O","O"]
+
+      @minimax.minmax(@board, @player).should == "DRAW"
     end
 
   end
 
   describe 'score_a_move(board, player, empty_space)' do
     it 'should return a win move' do
-      empty_space = 2
       @board=["X","X","+",
               "+","+","+",
               "+","+","+"]
 
-     @minimax.score_a_move(@board, @player, empty_space).should == 1
+      @minimax.score_a_move(@board, @player).should == 2
     end
 
     it 'should return a lose move' do
-      empty_space = 2
       @board=["O","O","+",
               "+","+","+",
               "+","+","+"]
 
-     @minimax.score_a_move(@board, @player, empty_space).should == -1
+      @minimax.score_a_move(@board, @player).should == 2
     end
+    it 'should defend against a split' do
+      @board=["O","X","+",
+              "+","X","+",
+              "+","O","+"]
+
+      @minimax.score_a_move(@board, @player).should == 6
+    end
+
     it 'should return a draw' do
-      empty_space = 2
       @board=["O","X","X",
               "X","O","O",
               "X","O","X"]
 
-     @minimax.score_a_move(@board, @player, empty_space).should == 0
+      @minimax.score_a_move(@board, @player).should == 0
     end
 
   end
@@ -82,7 +94,7 @@ describe 'Pseudo_Minimax_Ai' do
     empty_space = 2
 
     it 'should return new board Array'do
-     @minimax.move_as_somebody(@board, @player, empty_space).grid.should be_a_kind_of(Array)
+      @minimax.move_as_somebody(@board, @player, empty_space).grid.should be_a_kind_of(Array)
     end
   end
 
