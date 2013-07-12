@@ -1,3 +1,5 @@
+require 'pry'
+
 class Human
   attr_accessor :player_symbol
 
@@ -10,8 +12,22 @@ class Human
   end
   
   def make_move(board) 
+    
     @io.puts "Human makes move..." # TODO - puts displayed by IO object in future refactor
-    @io.gets.chomp.to_i
+    
+    human_spot_to_take = @io.gets.chomp.to_i
+
+    if human_spot_to_take >= 0 && human_spot_to_take < board.grid.length 
+      if board.grid[human_spot_to_take] == "+"
+        return human_spot_to_take
+      else
+        puts "spot taken...try again"
+        make_move(baord)
+      end
+    else
+      puts "Move out of bounds..try again"
+      make_move(board)
+    end
   end
 end
 

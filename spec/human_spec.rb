@@ -1,5 +1,6 @@
 require 'human'
 require 'board'
+require 'pry'
 
 describe 'Human class' do
   before (:each) do
