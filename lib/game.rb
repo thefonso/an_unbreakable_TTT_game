@@ -3,6 +3,10 @@ require_relative 'human'
 require_relative 'ai'
 require_relative 'windetection'
 
+#TODO -
+# add "winner" player_name OR "draw"
+# add "move out of bounds try again"
+# add "move taken please try again"  
 class Game
   attr_reader :board
   include WinDetection

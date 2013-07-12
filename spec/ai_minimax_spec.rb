@@ -45,10 +45,17 @@ describe 'Pseudo_Minimax_Ai' do
 
       @minimax.minmax(@board, @player).should == 6
     end
+    it 'should place last move board' do
+      @board.grid=["X","O","X",
+                   "X","O","O",
+                   "O","X","+"]
+
+      @minimax.minmax(@board, @player).should == 8
+    end
     xit 'should return the word DRAW' do
-      @board.grid=["O","X","X",
-                   "O","O","X",
-                   "X","O","O"]
+      @board.grid=["X","O","X",
+                   "X","O","O",
+                   "O","X","O"]
 
       @minimax.minmax(@board, @player).should == "DRAW"
     end

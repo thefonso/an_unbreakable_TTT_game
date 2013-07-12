@@ -27,13 +27,14 @@ class Minmax
     return first_move if first_move?(board)
     board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys  
-    
+
     empty_spaces_on_board.each do |space|
       if score_a_move(cloned_board,player)[0] === 1
         return score_a_move(cloned_board,player)[1]
       elsif score_a_move(cloned_board,player)[0] === -1
         return score_a_move(cloned_board,player)[1]
       end
+      return space
     end 
   end
 
@@ -69,7 +70,6 @@ class Minmax
           return -1, space
         end
       end
-#binding.pry
       score_a_move(@enemy_board,player_symbol)
     end
   end
