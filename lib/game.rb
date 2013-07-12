@@ -4,7 +4,6 @@ require_relative 'ai'
 require_relative 'windetection'
 
 #TODO -
-# add "winner" player_name OR "draw"
 # add "move out of bounds try again"
 # add "move taken please try again"  
 class Game
@@ -44,5 +43,15 @@ class Game
     three_in_a_row_win?(@board.grid, @player_1.player_symbol) ||
     three_in_a_row_win?(@board.grid, @player_2.player_symbol) ||
     @board.grid.none? { |move| move == '+' }
+  end
+
+  def who_won
+    if three_in_a_row_win?(@board.grid, @player_1.player_symbol)
+      return "The winner is "+@player_1.player_symbol
+    elsif three_in_a_row_win?(@board.grid, @player_2.player_symbol)
+      return "The winner is "+@player_2.player_symbol
+    elsif @board.grid.none? { |move| move == '+' }
+      return "DRAW"
+    end
   end
 end

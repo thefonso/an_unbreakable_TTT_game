@@ -15,6 +15,7 @@ game = Game.new(ai, human, @board)
 #ai_easy = AIeasy.new
 
 while !game.over?
+
   # TODO move what this next puts statment does to IOtower.print_board(game.board.grid)
   # puts board.printgrid
   # move = IOtower.ask_for_move #Presenter comes from IO.
@@ -22,4 +23,6 @@ while !game.over?
   puts game.drawgrid
   game.play_move(@board)
 end
+
 puts game.drawgrid
+puts game.who_won
