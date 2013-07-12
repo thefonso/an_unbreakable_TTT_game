@@ -22,12 +22,19 @@ class Minmax
 
   def minmax(board, player)
     # return best move
-    cloned_board = board.clone
-
-    return first_move if first_move?(board)
+    cloned_board = board.grid.clone
     
-    score_a_move(cloned_board,player)
-
+    return first_move if first_move?(board)
+    board_hash = Hash[(0...board.grid.size).zip board.grid]
+    empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys  
+    
+    empty_spaces_on_board.each do |space|
+      if score_a_move(cloned_board,player)[0] === 1
+        return score_a_move(cloned_board,player)[1]
+      elsif score_a_move(cloned_board,player)[0] === -1
+        return score_a_move(cloned_board,player)[1]
+      end
+    end 
   end
 
   def score_a_move(board, player_symbol)
@@ -43,52 +50,32 @@ class Minmax
       #find all empty spaces on board 
       board_hash = Hash[(0...board.size).zip board]
       empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys 
-      # binding.pry
+
 
       empty_spaces_on_board.each do |space|
         ply=0
         @cloned_board = board.clone
         @cloned_board[space] = player_symbol
-        player_boards_hash[ply] = @cloned_board
+        player_boards_hash[ply] = @cloned_board 
 
         @enemy_board = board.clone
         @enemy_board[space] = opponent
         enemy_boards_hash[ply] = @enemy_board
         ply+=1
-
+        
         if three_in_a_row_win?(@cloned_board, player_symbol)
-          return space
+          return  1, space
         elsif three_in_a_row_win?(@enemy_board, opponent)
-          return space
+          return -1, space
         end
       end
-       score_a_move(@enemy_board,player_symbol)
+#binding.pry
+      score_a_move(@enemy_board,player_symbol)
     end
   end
 
-  def move_as_somebody(board, player, empty_space)
-    board[empty_space] = player
-    @i+=1 # TODO forgot why this is here....why is this here?
-    return board
-  end
-
-  def generate_nextboard(board,player)
-    cloned_board = board.clone
-    space = nil
-    cloned_again_board = Board.new
-    board_hash = Hash[(0...cloned_board.grid.size).zip cloned_board.grid]
-    empty_spaces = board_hash.select{ |k,v| v == '+' }.keys 
-    #binding.pry
-
-    space = empty_spaces[0]
-    cloned_again_board = move_as_somebody(cloned_board, switch_player(player), space)
-    #binding.pry
-
-    return cloned_again_board
-  end
 
   def draw?(board)
-    # binding.pry
     board_array = board
     board_array.none? { |mark| mark == '+' }
   end

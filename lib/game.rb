@@ -18,9 +18,9 @@ class Game
     @board.printgrid
   end
 
-  def play_move
-    move = @current_player.make_move
-    @board.grid[move] = @current_player.player_symbol
+  def play_move(board)
+    move = @current_player.make_move(board)
+    board.grid[move] = @current_player.player_symbol
     switch_players
   end
 

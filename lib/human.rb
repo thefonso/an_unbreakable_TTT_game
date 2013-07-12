@@ -9,8 +9,8 @@ class Human
     @io = io
   end
   
-  def make_move(board)# TODO - refactor your test for receiving a board
-    @io.puts "Human makes move..." # TODO - displayed by IO object in future refactor
+  def make_move(board) 
+    @io.puts "Human makes move..." # TODO - puts displayed by IO object in future refactor
     @io.gets.chomp.to_i
   end
 end

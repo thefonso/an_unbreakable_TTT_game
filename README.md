@@ -16,3 +16,8 @@ IOtower (interface to CLI, Rails or QT)
 game(interacts with human, ai, board)
 
 human(returns a move) ai(returns a move) board(displays gameboard)
+
+
+How to run
+=================
+cli: at command prompt, type... ruby ttt.rb

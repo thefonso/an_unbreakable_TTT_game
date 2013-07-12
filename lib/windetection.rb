@@ -1,5 +1,7 @@
 module WinDetection
   def three_in_a_row_win?(array, player_symbol)
+
+    # binding.pry
     [
       [0, 1, 2],
       [0, 3, 6],

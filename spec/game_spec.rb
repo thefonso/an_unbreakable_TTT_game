@@ -5,7 +5,7 @@ describe 'Game class' do
   before(:each) do
     @player_1 = Human.new
     @player_1.player_symbol = "O"
-    @player_2 = AI.new
+    @player_2 = AIhard.new
     @player_2.player_symbol = "X"
     @board = Board.new
     @game = Game.new(@player_1, @player_2, @board)
@@ -27,7 +27,7 @@ describe 'Game class' do
       ]
       
       @player_1.stub(:make_move).and_return(0)
-      @game.play_move
+      @game.play_move(@board)
       
       @game.board.grid[0].should == "O"
     end
@@ -40,9 +40,9 @@ describe 'Game class' do
       ]
       
       @player_1.stub(:make_move).and_return(0)
-      @game.play_move
+      @game.play_move(@board)
       @player_2.stub(:make_move).and_return(1)
-      @game.play_move
+      @game.play_move(@board)
       
       @game.board.grid[0].should == "O"
       @game.board.grid[1].should == "X"
