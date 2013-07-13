@@ -21,11 +21,11 @@ class Human
       if board.grid[human_spot_to_take] == "+"
         return human_spot_to_take
       else
-        puts "spot taken...try again"
+        @io.puts "spot taken...try again"
         make_move(baord)
       end
     else
-      puts "Move out of bounds..try again"
+      @io.puts "Move out of bounds..try again"
       make_move(board)
     end
   end
