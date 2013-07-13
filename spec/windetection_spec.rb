@@ -2,7 +2,7 @@ require 'windetection'
 require 'board'
 require 'pry'
 
-class Test_WinDetection
+class Test_WinDetection # this breaks standard Ruby style conventions of class constants
   include WinDetection
 end
 

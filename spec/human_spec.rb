@@ -5,7 +5,7 @@ describe 'Human class' do
   before (:each) do
     @board = Board.new
     @ui = mock(:ui)
-    @ui.stub(:puts)
+    @ui.stub(:puts) # this should be an io object that is passed into your Human class
   end
 
   it 'should receive play from input' do

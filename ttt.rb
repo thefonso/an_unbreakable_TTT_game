@@ -3,6 +3,11 @@ require './lib/game'
 require './lib/human'
 require './lib/iotower'
 
+player1, player2 = Human.new("X"), AIHard.new("O")
+board            = Board.new
+io               = IO.new($stdin, $stdout)
+Game.new(player1, player2, board, io).start
+
 human = Human.new
 human.player_symbol = "X"
 
