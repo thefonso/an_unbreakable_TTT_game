@@ -1,0 +1,21 @@
+F*
+
+Pending:
+  GameIO draw_three_by_three_board should display the board on standard output
+    # Temporarily disabled with xit
+    # ./spec/game_io_spec.rb:17
+
+Failures:
+
+  1) GameIO welcome_message should display a welcome message
+     Failure/Error: @gameio.welcome_message.should include("Hey, welcome to my game. Get ready to be defeated")
+     IOError:
+       not opened for reading
+     # ./spec/game_io_spec.rb:12:in `block (3 levels) in <top (required)>'
+
+Finished in 41.78 seconds
+2 examples, 1 failure, 1 pending
+
+Failed examples:
+
+rspec ./spec/game_io_spec.rb:11 # GameIO welcome_message should display a welcome message

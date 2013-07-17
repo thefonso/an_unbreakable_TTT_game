@@ -1,10 +1,10 @@
 require 'pry'
 
 class GameIO
-  attr_reader :stdin, :stdout
-  def initialize(stdin = $stdin, stdout = $stdout)
-    @stdin  = stdin
-    @stdout = stdout
+  attr_reader :game_input, :game_output
+  def initialize(game_input = $stdin, game_output = $stdout)
+    @game_input  = game_input
+    @game_output = game_output
   end
 
   def draw_board(board)
@@ -41,10 +41,12 @@ class GameIO
   end
 
   def output(msg)
-    stdout.puts msg
+    #binding.pry
+    @game_output.puts msg
   end
 
   def input
-    stdin.gets
+    @game_input.gets
   end
+
 end
