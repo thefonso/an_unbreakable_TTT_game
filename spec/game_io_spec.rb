@@ -5,8 +5,8 @@ require 'board'
 describe GameIO do
   before(:each) do
     @board     = Board.new
-    test_in   = StringIO.new("some test input\n")
-    test_out  = StringIO.new
+    test_in    = StringIO.new("some test input\n")
+    test_out   = StringIO.new
     @test_io   = GameIO.new(test_in, test_out)
   end
 

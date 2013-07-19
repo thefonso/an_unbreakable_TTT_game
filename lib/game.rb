@@ -2,23 +2,33 @@ require_relative 'board'
 require_relative 'human'
 require_relative 'ai'
 require_relative 'windetection'
+require_relative 'game_io'
 
 #TODO -
 # add "move out of bounds try again"
 # add "move taken please try again"  
 class Game
-  attr_reader :board
+  attr_reader :board, :player_1, :player_2, :io 
   include WinDetection
 
-  def initialize(player_1, player_2, board)
-   @board = board
-   @player_1 = player_1
-   @player_2 = player_2
+  def initialize(player_1, player_2, board, io)
+   @io             = io
+   @board          = board
+   @player_1       = player_1
+   @player_2       = player_2
    @current_player = @player_1
+  end
+
+  def start
+    while !game.over?
+      drawgrid
+      play_move
+    end
+    drawgrid
   end
   
   def drawgrid
-    @board.printgrid
+    @io.draw_board(board)
   end
 
   def play_move(board)
@@ -28,15 +38,12 @@ class Game
   end
 
   def switch_players  
+    # total number of spaces == "+" odd? or even?
     if @current_player.player_symbol == @player_1.player_symbol
       @current_player = @player_2
     else
       @current_player = @player_1
     end
-  end
-
-  def valid_move?(move)
-    @board.grid[move] == '+'
   end
 
   def over?

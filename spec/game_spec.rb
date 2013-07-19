@@ -1,21 +1,17 @@
 require 'game'
 require 'board'
 
+
 describe 'Game class' do
   before(:each) do
-    @player_1 = Human.new
+    @io                     = GameIO.new
+    @player_1               = Human.new
     @player_1.player_symbol = "O"
-    @player_2 = AIhard.new
+    @player_2               = AIhard.new
     @player_2.player_symbol = "X"
-    @board = Board.new
-    @game = Game.new(@player_1, @player_2, @board)
+    @board                  = Board.new
+    @game                   = Game.new(@player_1, @player_2, @board, @io)
     @game.stub(:puts)
-  end
-
-  context "drawgrid" do
-    xit "draws a game grid" do
-
-    end
   end
 
   context "who_won" do
@@ -84,27 +80,6 @@ describe 'Game class' do
     end
   end
 
-  context "valid_move? method" do
-    it 'is true if board is empty' do
-      @board.grid = [
-        "+", "+", "+",
-        "+", "+", "+",
-        "+", "+", "+"
-      ]
-
-      @game.valid_move?(0).should be_true
-    end
-
-    it 'is false if move is taken' do
-      @board.grid = [
-        "O", "+", "+",
-        "+", "+", "+",
-        "+", "+", "+"
-      ]
-
-      @game.valid_move?(0).should be_false
-    end
-  end
 
   context "over method" do
     it 'is false if board is empty' do

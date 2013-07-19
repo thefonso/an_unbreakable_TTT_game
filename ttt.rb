@@ -21,15 +21,4 @@ game = Game.new(ai, human, @board)
 # select board
 # 3x3 or 4x4
 
-while !game.over?
-  # TODO move what this next puts statment does to IOtower.print_board(game.board.grid)
-  # puts board.printgrid
-  # move = IOtower.ask_for_move #Presenter comes from IO.
-  # move = # TODO - argh....what goes here now?
-
-  puts game.drawgrid
-  game.play_move(@board)
-end
-
-puts game.drawgrid
-puts game.who_won
+game.start
