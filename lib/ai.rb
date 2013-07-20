@@ -1,52 +1,36 @@
-require_relative 'ai_minimax'
+require 'minimax'
 
 
 class AIhard
-  attr_accessor :player_symbol
+  attr_reader :player_symbol, :move_engine
 
-  # holds what piece it is and returns a move
-  # TODO - make it so IOtower ask end user for symbol selection
-  # hold setting for this in external config.rb file as so ([AI, 'O'] )
-  # TODO - displayed by IOtower in future refactor
-  def initialize(io = Kernel)
-    @io = io
+  def initialize(player_symbol, move_engine)
+    @player_symbol = player_symbol
+    @move_engine   = move_engine
   end
 
   def make_move(board)
-    @io.puts "AI takes move..."
-    ai = Minmax.new
-    ai.minmax(board,player_symbol)
+    move_engine.get_move(board,player_symbol)
   end
-
+  
+  def needs_board?
+    true
+  end
 end
 
 class AIeasy
-  attr_accessor :player_symbol
+  attr_accessor :player_symbol, :move_engine
 
-  # holds what piece it is and returns a move
-  # TODO - make it so IOtower ask end user for symbol selection
-  # hold setting for this in external config.rb file as so ([AI, 'O'] )
-  # TODO - displayed by IOtower in future refactor
-  def initialize(io = Kernel)
-    @io = io
+  def initialize(player_symbol, move_engine)
+    @player_symbol = player_symbol
+    @move_engine   = move_engine
   end
 
   def make_move(board)
-    @io.puts "AI takes move..."
-    # @io.gets.chomp.to_i #human vs human
-    random_move(board)
+    move_engine.get_move(board)
   end
 
-  def random_move(board)
-    board = board.grid
-    @empty_spaces = []
-
-    board.size.times do |empty|
-      if board[empty] == '+'
-        @empty_spaces << empty
-      end
-    end
-    return @empty_spaces.sample
+  def needs_board?
+    true
   end
-
 end

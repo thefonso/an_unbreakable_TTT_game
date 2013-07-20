@@ -8,6 +8,7 @@ class Board
       "+", "+", "+"
     ]
   end
+
   def move_number
     grid.count("+")
   end

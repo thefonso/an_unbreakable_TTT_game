@@ -3,12 +3,25 @@ require './lib/game'
 require './lib/human'
 require './lib/game_io'
 require 'pry'
-human               = Human.new
-human.player_symbol = "X"
-ai                  = AIhard.new
-ai.player_symbol    = "O"
-@board               = Board.new
+
+#TODO - ask about 
+# ex. 
+# this is preferable: 
+# player1 = Human.new("X", io_object) 
+# 
+# rather than:
+# player1 = Human.new
+# player2.player_symbol = "X"
+
 io                  = GameIO.new
+
+human               = Human.new("X", io)
+#human.player_symbol = "X"
+
+ai                  = AIhard.new(io)
+ai.player_symbol    = "O"
+
+@board               = Board.new
 
 game                = Game.new(ai, human, @board, io)
 

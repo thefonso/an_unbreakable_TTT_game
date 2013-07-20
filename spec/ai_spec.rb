@@ -1,71 +1,51 @@
 require 'ai'
 require 'board'
+require 'minimax'
+require 'random_move'
 
+describe AIhard do
+  let(:minimax_engine) {Minimax.new}
+  let(:board) {Board.new}
 
-describe 'AIhard class' do
-  before (:each) do
-    @board = Board.new
-    @ui = mock(:ui)
-    @ui.stub(:puts)
-  end
-  context "make_move method" do
-
-    it 'has player symbol' do
-      ai = AIhard.new(@ui)
-      ai.player_symbol = 'O'
-      ai.player_symbol.should == 'O'
+  context 'player symbol' do
+    it 'receives a player symbol' do
+      described_class.new("X", minimax_engine).player_symbol.should == "X"
+      described_class.new("O", minimax_engine).player_symbol.should == "O"
     end
+  end
 
-    it 'should receive play from input' do
-      @board.grid = [
+  context "move" do
+    it 'should receive move from move engine' do
+      board.grid = [
         "X", "+", "+",
         "+", "X", "+",
         "+", "+", "+"
       ]
-      ai = AIhard.new(@ui)
-      ai.make_move(@board).should == 8
+      described_class.new("X", minimax_engine).make_move(board).should == 8
     end
   end
 end
 
-describe 'AIeasy class' do
-  before (:each) do
-    @board = Board.new
-    @ui = mock(:ui)
-    @ui.stub(:puts)
-  end
-  context "make_move method" do
+describe AIeasy do
+  let(:random_engine) {RandomMove.new}
+  let(:board) {Board.new}
 
+  context 'player symbol' do
     it 'has player symbol' do
-      ai = AIeasy.new(@ui)
-      ai.player_symbol = 'O'
-      ai.player_symbol.should == 'O'
+      described_class.new("X", random_engine).player_symbol.should == "X"
+      described_class.new("O", random_engine).player_symbol.should == "O"
     end
-
-    it 'should receive play from input' do
-      @board.grid = [
-        "O", "+", "+",
-        "X", "+", "+",
-        "O", "+", "+"
-      ]
-      @ui.stub(:gets).and_return("1")
-      ai = AIeasy.new(@ui)
-      ai.make_move(@board).should_not be_nil
-    end
-
   end
 
-  context "random_move method" do
-    it "should return a move" do
-      @board.grid = [
+  context "move" do
+    it 'should receive move from move engine' do
+      board.grid = [
         "O", "+", "+",
         "X", "+", "+",
         "O", "+", "+"
       ]
-      test_board = @board
-      ai = AIeasy.new(@ui)
-      ai.random_move(test_board).should be_an(Integer)
+
+      [*0..9].should include(described_class.new("X", random_engine).make_move(board))
     end
   end
 end
-

@@ -52,4 +52,12 @@ describe GameIO do
     end
   end
 
+  context 'input' do
+    it 'returns an integer representing a human player move' do
+      test_input = StringIO.new("1\n")
+      test_io = GameIO.new(test_input, StringIO.new)
+      test_io.input.should == 1
+    end
+  end
+
 end

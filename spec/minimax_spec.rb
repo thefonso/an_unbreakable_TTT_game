@@ -1,5 +1,5 @@
 require 'board'
-require 'ai_minimax'
+require 'minimax'
 
 describe 'Pseudo_Minimax_Ai' do
   before (:each) do
@@ -7,7 +7,7 @@ describe 'Pseudo_Minimax_Ai' do
     @count = 0
     @ply = 2
     @board = Board.new
-    @minimax = Minmax.new
+    @minimax = Minimax.new
     @minimax.i = 0
 
     @board.grid=["O","O","X",
@@ -15,7 +15,7 @@ describe 'Pseudo_Minimax_Ai' do
                  "+","+","+"]
   end
 
-  describe 'minmax' do
+  describe 'minimax' do
 
     it 'should take optimal first move' do
       @board.stub(:available_spaces).and_return(["+", "+", "+", "+", "+", "+", "+", "+", "+"])
@@ -27,7 +27,7 @@ describe 'Pseudo_Minimax_Ai' do
                    "+","+","+",
                    "+","+","X"]
 
-      @minimax.minmax(@board, @player).should == 4
+      @minimax.get_move(@board, @player).should == 4
     end
 
     it 'should return a blocking move' do
@@ -35,7 +35,7 @@ describe 'Pseudo_Minimax_Ai' do
                    "+","O","+",
                    "+","+","+"]
 
-      @minimax.minmax(@board, @player).should == 8
+      @minimax.get_move(@board, @player).should == 8
     end
 
     it 'should defend against a split' do
@@ -43,14 +43,14 @@ describe 'Pseudo_Minimax_Ai' do
                    "+","X","+",
                    "+","O","+"]
 
-      @minimax.minmax(@board, @player).should == 6
+      @minimax.get_move(@board, @player).should == 6
     end
     it 'should place last move board' do
       @board.grid=["X","O","X",
                    "X","O","O",
                    "O","X","+"]
 
-      @minimax.minmax(@board, @player).should == 8
+      @minimax.get_move(@board, @player).should == 8
     end
   end
 

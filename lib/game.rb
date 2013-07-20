@@ -9,11 +9,10 @@ class Game
   include WinDetection
 
   def initialize(player_1, player_2, board, io)
-   @io             = io
-   @board          = board
-   @player_1       = player_1
-   @player_2       = player_2
-   @current_player = player_1
+   @player_1  = player_1
+   @player_2  = player_2
+   @board     = board
+   @io        = io
   end
 
   def start
@@ -29,20 +28,19 @@ class Game
   end
   
   def play_move
-    board.update(get_current_move, current_player_token)     
-    switch_players
+    board.update(get_current_move, current_player_symbol)     
   end
 
   def get_current_move
-    current_player.make_move(board)
+    if current_player.needs_board?
+      current_player.make_move(board)
+    else
+      current_player.make_move
+    end
   end
 
-  def current_player_token
+  def current_player_symbol 
     current_player.player_symbol
-  end
-
-  def switch_players  
-    current_player 
   end
 
   def current_player

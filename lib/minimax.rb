@@ -1,8 +1,8 @@
 require 'facets'
-require_relative 'windetection'
+require 'windetection'
 require 'pry'
 
-class Minmax 
+class Minimax 
   include WinDetection
 
   attr_accessor :i
@@ -20,7 +20,7 @@ class Minmax
     board == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
   end
 
-  def minmax(board, player)
+  def get_move(board, player)
     # return best move
     cloned_board = board.grid.clone
     

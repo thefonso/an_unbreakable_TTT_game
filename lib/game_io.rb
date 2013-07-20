@@ -14,6 +14,14 @@ class GameIO
     end
   end
 
+  def ai_move
+    output "AI makes move"
+  end
+
+  def human_move
+    output "Human makes move"
+  end
+
   def welcome_message 
     output "Hey, welcome to my game. Get ready to be defeated" 
   end
@@ -41,12 +49,11 @@ class GameIO
   end
 
   def output(msg)
-    #binding.pry
     @game_output.puts msg
   end
 
   def input
-    @game_input.gets
+    @game_input.gets.chomp.to_i
   end
 
 end
