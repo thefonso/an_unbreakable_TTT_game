@@ -8,13 +8,12 @@ class Board
       "+", "+", "+"
     ]
   end
-
-  def play_move(position, piece)
-    @grid[position] = piece
+  def move_number
+    grid.count("+")
   end
 
-  def update(move, player_symbol)
-    grid[move] = player_symbol
+  def update(position, player_symbol)
+    @grid[position] = player_symbol
   end
 
   def board_name

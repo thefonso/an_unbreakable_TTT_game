@@ -1,7 +1,14 @@
 module WinDetection
-  def three_in_a_row_win?(array, player_symbol)
+  def win?(array)
+    three_in_a_row_win?(array, "X") ||
+    three_in_a_row_win?(array, "O")
+  end
 
-    # binding.pry
+  def draw?(array)
+    array.none? { |move| move == '+' }
+  end
+
+  def three_in_a_row_win?(array, player_symbol)
     [
       [0, 1, 2],
       [0, 3, 6],

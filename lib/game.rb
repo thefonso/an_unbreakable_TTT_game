@@ -16,13 +16,16 @@ class Game
    @board          = board
    @player_1       = player_1
    @player_2       = player_2
-   @current_player = @player_1
+   @current_player = player_1
   end
 
   def start
-    while !game.over?
+    if !game.over?
       drawgrid
       play_move
+      switch_players
+    else
+      who_won
     end
     drawgrid
   end
@@ -30,29 +33,37 @@ class Game
   def drawgrid
     @io.draw_board(board)
   end
+  
+  def play_move
+    board.update(get_current_move, current_player_token)
+  end
 
-  def play_move(board)
-    move = @current_player.make_move(board)
-    board.grid[move] = @current_player.player_symbol
-    switch_players
+  def get_current_move
+    current_player.make_move(board)
+  end
+
+  def current_player_token
+    current_player.player_symbol
   end
 
   def switch_players  
-    # total number of spaces == "+" odd? or even?
-    if @current_player.player_symbol == @player_1.player_symbol
-      @current_player = @player_2
+    current_player 
+  end
+
+  def current_player
+    if board.move_number % 2 == 0
+      player_1
     else
-      @current_player = @player_1
+      player_2
     end
   end
 
   def over?
-    three_in_a_row_win?(@board.grid, @player_1.player_symbol) ||
-    three_in_a_row_win?(@board.grid, @player_2.player_symbol) ||
-    @board.grid.none? { |move| move == '+' }
+    win?(@board.grid)||draw?(@board.grid) 
   end
 
   def who_won
+    #TODO - ask about this...is there a better SOLID way?
     if three_in_a_row_win?(@board.grid, @player_1.player_symbol)
       return "The winner is "+@player_1.player_symbol
     elsif three_in_a_row_win?(@board.grid, @player_2.player_symbol)

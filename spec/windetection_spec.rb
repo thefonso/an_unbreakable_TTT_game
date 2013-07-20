@@ -10,8 +10,27 @@ describe "Windetection module" do
   before (:each) do
     @board = Board.new
   end
-
-  context "is_a_human_win" do
+  context "win? method" do
+    it "should indicate a win" do
+      detect = Test_WinDetection.new     
+      @board = [
+        "+", "X", "+",
+        "+", "X", "+",
+        "+", "X", "+"
+      ]
+      detect.win?(@board).should be_true   
+    end
+    it "should indicate a draw" do
+      detect = Test_WinDetection.new     
+      @board = [
+        "O", "X", "O",
+        "O", "X", "X",
+        "X", "O", "O"
+      ]
+      detect.draw?(@board).should be_true  
+    end
+  end
+  context "three_in_a_row method" do
     it "detects a win for X" do
       detect  = Test_WinDetection.new
       @board = [

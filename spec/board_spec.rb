@@ -15,10 +15,11 @@ describe 'Board class' do
       ]
     end
   end
-  context "play_move method" do
-    it 'should play a move' do
 
-      @board.play_move(0, 'o')
+  context "update method" do
+    it 'should update a move' do
+
+      @board.update(0, 'o')
 
       @board.grid.should == [
         "o", "+", "+",

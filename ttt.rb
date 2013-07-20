@@ -1,15 +1,16 @@
 require './lib/board'
 require './lib/game'
 require './lib/human'
-require './lib/iotower'
+require './lib/game_io'
 
-human = Human.new
+human               = Human.new
 human.player_symbol = "X"
+ai                  = AIhard.new
+ai.player_symbol    = "O"
+@board               = Board.new
+io                  = GameIO.new
 
-ai    = AIhard.new
-ai.player_symbol = "O"
-@board = Board.new
-game = Game.new(ai, human, @board)
+game                = Game.new(ai, human, @board, io)
 
 #TODO - set up configure_game senerio
 # select difficulty
