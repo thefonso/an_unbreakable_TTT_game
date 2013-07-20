@@ -48,6 +48,15 @@ describe 'Board class' do
 
       @board.valid_move?(0).should be_false
     end
+    it 'is false if move is out of bounds' do
+      @board.grid = [
+        "+", "+", "+",
+        "+", "+", "+",
+        "+", "+", "+"
+      ]
+
+      @board.valid_move?(10).should be_false
+    end
   end
 
 end

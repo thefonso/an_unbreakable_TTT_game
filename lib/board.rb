@@ -20,7 +20,6 @@ class Board
     :three_by_three
   end
 
-  #TODO valid?(move) method here
   def valid_move?(move)
     grid[move] == '+'
   end

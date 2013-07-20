@@ -3,9 +3,7 @@ require 'pry'
 class Human
   attr_accessor :player_symbol
 
-  # TODO - make it so IOtower ask end user for symbol selection
-  # hold setting for this in external config.rb file as so ([human, 'X'] )
-
+ 
   def initialize(io = Kernel)
     @io = io
   end
@@ -13,20 +11,9 @@ class Human
   def make_move(board) 
     
     @io.puts "Human makes move..." # TODO - puts displayed by IO object in future refactor
-    
-    human_spot_to_take = @io.gets.chomp.to_i
+   
+    @io.gets.chomp.to_i            # TODO - have game_io indicate non valid moves 
 
-    if human_spot_to_take >= 0 && human_spot_to_take < board.grid.length 
-      if board.grid[human_spot_to_take] == "+"
-        return human_spot_to_take
-      else
-        @io.puts "spot taken...try again"
-        make_move(baord)
-      end
-    else
-      @io.puts "Move out of bounds..try again"
-      make_move(board)
-    end
   end
 end
 

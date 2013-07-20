@@ -2,7 +2,7 @@ require './lib/board'
 require './lib/game'
 require './lib/human'
 require './lib/game_io'
-
+require 'pry'
 human               = Human.new
 human.player_symbol = "X"
 ai                  = AIhard.new

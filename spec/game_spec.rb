@@ -5,7 +5,7 @@ require 'board'
 describe 'Game class' do
   before(:each) do
     @io                     = GameIO.new
-    @player_1               = Human.new()
+    @player_1               = Human.new
     @player_1.player_symbol = "O"
     @player_2               = AIhard.new
     @player_2.player_symbol = "X"

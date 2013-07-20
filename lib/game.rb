@@ -4,9 +4,6 @@ require_relative 'ai'
 require_relative 'windetection'
 require_relative 'game_io'
 
-#TODO -
-# add "move out of bounds try again"
-# add "move taken please try again"  
 class Game
   attr_reader :board, :player_1, :player_2, :io 
   include WinDetection
@@ -20,12 +17,9 @@ class Game
   end
 
   def start
-    if !game.over?
+    while !over?
       drawgrid
       play_move
-      switch_players
-    else
-      who_won
     end
     drawgrid
   end
@@ -35,7 +29,8 @@ class Game
   end
   
   def play_move
-    board.update(get_current_move, current_player_token)
+    board.update(get_current_move, current_player_token)     
+    switch_players
   end
 
   def get_current_move
