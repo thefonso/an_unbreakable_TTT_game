@@ -40,7 +40,6 @@ class Minimax
 
   def score_a_move(board, player_symbol)
   # find best move
-    
     opponent = switch_player(player_symbol)
     player_boards_hash = Hash.new
     enemy_boards_hash = Hash.new
