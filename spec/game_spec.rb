@@ -1,12 +1,12 @@
 require 'game'
 require 'board'
+require 'pry'
 
-
-describe 'Game class' do
+describe Game do
   before(:each) do
     @io                     = GameIO.new
     @player_1               = Human.new("O", @io)
-    @player_2               = AIhard.new("X")
+    @player_2               = AIhard.new("X", @io)
     @board                  = Board.new
     @game                   = Game.new(@player_1, @player_2, @board, @io)
     @game.stub(:puts)

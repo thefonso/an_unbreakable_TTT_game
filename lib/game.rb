@@ -9,10 +9,10 @@ class Game
   include WinDetection
 
   def initialize(player_1, player_2, board, io)
-   @player_1  = player_1
-   @player_2  = player_2
-   @board     = board
-   @io        = io
+    @player_1  = player_1
+    @player_2  = player_2
+    @board     = board
+    @io        = io
   end
 
   def start
@@ -22,11 +22,11 @@ class Game
     end
     drawgrid
   end
-  
+
   def drawgrid
     @io.draw_board(board)
   end
-  
+
   def play_move
     board.update(get_current_move, current_player_symbol)     
   end

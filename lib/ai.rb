@@ -1,4 +1,4 @@
-require 'minimax'
+require './lib/minimax'
 
 
 class AIhard

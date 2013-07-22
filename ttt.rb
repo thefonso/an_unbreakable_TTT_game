@@ -16,12 +16,9 @@ require 'pry'
 io                  = GameIO.new
 
 human               = Human.new("X", io)
-#human.player_symbol = "X"
+ai                  = AIhard.new("O", io)
 
-ai                  = AIhard.new(io)
-ai.player_symbol    = "O"
-
-@board               = Board.new
+@board              = Board.new
 
 game                = Game.new(ai, human, @board, io)
 
