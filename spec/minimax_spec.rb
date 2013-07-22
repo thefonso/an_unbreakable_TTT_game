@@ -38,14 +38,14 @@ describe 'Pseudo_Minimax_Ai' do
       @minimax.get_move(@board, @player).should == 8
     end
 
-    it 'should defend against a split' do
+    it 'should defend against split one' do
       @board.grid=["O","X","+",
                    "+","X","+",
                    "+","O","+"]
 
       @minimax.get_move(@board, @player).should == 6
     end
-    it 'should defend against a split' do
+    it 'should defend against split two' do
       @board.grid=["+","O","+",
                    "+","X","+",
                    "O","+","+"]
@@ -84,7 +84,13 @@ describe 'Pseudo_Minimax_Ai' do
 
       @minimax.score_a_move(@board, @player)[1].should == 6
     end
+    it 'should defend against split two' do
+      @board=["+","O","+",
+              "+","X","+",
+              "O","+","+"]
 
+      @minimax.score_a_move(@board, @player)[1].should == 3
+    end
     it 'should return a draw' do
       @board=["O","X","X",
               "X","O","O",

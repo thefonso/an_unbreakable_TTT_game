@@ -51,7 +51,6 @@ class Minimax
       board_hash = Hash[(0...board.size).zip board]
       empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys 
 
-
       empty_spaces_on_board.each do |space|
         ply=0
         @cloned_board = board.clone
