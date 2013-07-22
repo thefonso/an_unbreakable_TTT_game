@@ -2,6 +2,8 @@ require 'ai'
 require 'board'
 require 'minimax'
 require 'random_move'
+require 'game_io'
+
 
 describe AIhard do
   let(:minimax_engine) {Minimax.new}
@@ -9,19 +11,23 @@ describe AIhard do
 
   context 'player symbol' do
     it 'receives a player symbol' do
-      described_class.new("X", minimax_engine).player_symbol.should == "X"
-      described_class.new("O", minimax_engine).player_symbol.should == "O"
+      io = GameIO.new(StringIO.new, StringIO.new)
+
+      described_class.new("X", io).player_symbol.should == "X"
+      described_class.new("O", io).player_symbol.should == "O"
     end
   end
 
   context "move" do
     it 'should receive move from move engine' do
+      io = GameIO.new(StringIO.new, StringIO.new)
+
       board.grid = [
         "X", "+", "+",
         "+", "X", "+",
         "+", "+", "+"
       ]
-      described_class.new("X", minimax_engine).make_move(board).should == 8
+      described_class.new("X", io).make_move(board).should == 8
     end
   end
 end
@@ -32,20 +38,24 @@ describe AIeasy do
 
   context 'player symbol' do
     it 'has player symbol' do
-      described_class.new("X", random_engine).player_symbol.should == "X"
-      described_class.new("O", random_engine).player_symbol.should == "O"
+      io = GameIO.new(StringIO.new, StringIO.new)
+
+      described_class.new("X", io).player_symbol.should == "X"
+      described_class.new("O", io).player_symbol.should == "O"
     end
   end
 
   context "move" do
     it 'should receive move from move engine' do
+      io = GameIO.new(StringIO.new, StringIO.new)
+
       board.grid = [
         "O", "+", "+",
         "X", "+", "+",
         "O", "+", "+"
       ]
 
-      described_class.new("X", random_engine).make_move(board).should be_a_kind_of(Integer) 
+      described_class.new("X", io).make_move(board).should be_a_kind_of(Integer) 
     end
   end
 end
