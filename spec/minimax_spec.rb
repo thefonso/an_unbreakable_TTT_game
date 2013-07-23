@@ -50,7 +50,7 @@ describe 'Pseudo_Minimax_Ai' do
                    "+","X","+",
                    "O","+","+"]
 
-      @minimax.get_move(@board, @player).should == 3
+      @minimax.get_move(@board, @player).should == 0
     end
     it 'should place last move board' do
       @board.grid=["X","O","X",
@@ -90,7 +90,7 @@ describe 'Pseudo_Minimax_Ai' do
               "+","X","+",
               "O","+","+"]
 
-      @minimax.score_a_move(@board, @player)[1].should == 3
+      @minimax.score_a_move(@board, @player)[1].should == 0
     end
     it 'random test' do
       @board=["+","O","+",

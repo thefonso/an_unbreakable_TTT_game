@@ -45,6 +45,6 @@ return -1 (8)
  "O", "+", "O"], 
 return -1 (7)
 
-[[-1, 2], [-1, 0], [-1, 0], [-1, 8]]
+[[-1, 2], [-1, 0], [-1, 0], [0, 2, 3, 7, 8], [-1, 8], [-1, 7]]
 
-#so how to extract duplicate inner [1] values?
+#so how to extract duplicate inner values?

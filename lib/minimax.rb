@@ -31,14 +31,12 @@ class Minimax
 
     empty_spaces_on_board.each do |space|
       if score_a_move(cloned_board,player)[0] === 1
-        #return score_a_move(cloned_board,player)[1]
-        answers << score_a_move(cloned_board,player)[1]
+        return score_a_move(cloned_board,player)[1]
       elsif score_a_move(cloned_board,player)[0] === -1
-        #return score_a_move(cloned_board,player)[1]
-        answers << score_a_move(cloned_board,player)[1]
+        return score_a_move(cloned_board,player)[1]
       end
-      binding.pry
-      #return space
+      #binding.pry
+      return space
     end 
   end
 
@@ -76,11 +74,10 @@ class Minimax
 
       if ply > 0
         next_boards.each do |nextboard|
-          # nextboard
           answers << score_a_board(nextboard, player_symbol)
         end
+        return answers.detect{|element| answers.count(element) > 1}
       end
-      binding.pry
 
     end
   end
