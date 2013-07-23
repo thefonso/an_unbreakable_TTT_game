@@ -23,52 +23,90 @@ class Minimax
   def get_move(board, player)
     # return best move
     cloned_board = board.grid.clone
-    
+
     return first_move if first_move?(board)
     board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys  
+    answers = Array.new
 
     empty_spaces_on_board.each do |space|
       if score_a_move(cloned_board,player)[0] === 1
-        return score_a_move(cloned_board,player)[1]
+        #return score_a_move(cloned_board,player)[1]
+        answers << score_a_move(cloned_board,player)[1]
       elsif score_a_move(cloned_board,player)[0] === -1
-        return score_a_move(cloned_board,player)[1]
+        #return score_a_move(cloned_board,player)[1]
+        answers << score_a_move(cloned_board,player)[1]
       end
-      return space
+      binding.pry
+      #return space
     end 
   end
 
   def score_a_move(board, player_symbol)
-  # find best move
+    # find best move
     opponent = switch_player(player_symbol)
-    player_boards_hash = Hash.new
-    enemy_boards_hash = Hash.new
+    next_boards         = Array.new
+    answers             = Array.new
 
     if draw?(board)
       return 0
     else
+      ply=0
       #find all empty spaces on board 
       board_hash = Hash[(0...board.size).zip board]
       empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys 
 
       empty_spaces_on_board.each do |space|
-        ply=0
+
         @cloned_board = board.clone
         @cloned_board[space] = player_symbol
-        player_boards_hash[ply] = @cloned_board 
 
         @enemy_board = board.clone
         @enemy_board[space] = opponent
-        enemy_boards_hash[ply] = @enemy_board
-        ply+=1
-        
+
+        if three_in_a_row_win?(@cloned_board, player_symbol)
+          return  1, space
+        elsif three_in_a_row_win?(@enemy_board, opponent)
+          return -1, space
+        else
+          next_boards << @enemy_board
+          ply+=1
+        end
+      end
+
+      if ply > 0
+        next_boards.each do |nextboard|
+          # nextboard
+          answers << score_a_board(nextboard, player_symbol)
+        end
+      end
+      binding.pry
+
+    end
+  end
+
+  def score_a_board(board, player_symbol)
+    opponent = switch_player(player_symbol)
+
+    if draw?(board)
+      return 0
+    else
+      board_hash = Hash[(0...board.size).zip board]
+      empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys 
+
+      empty_spaces_on_board.each do |space|
+
+        @cloned_board = board.clone
+        @cloned_board[space] = player_symbol
+
+        @enemy_board = board.clone
+        @enemy_board[space] = opponent
         if three_in_a_row_win?(@cloned_board, player_symbol)
           return  1, space
         elsif three_in_a_row_win?(@enemy_board, opponent)
           return -1, space
         end
       end
-      score_a_move(@enemy_board,player_symbol)
     end
   end
 
