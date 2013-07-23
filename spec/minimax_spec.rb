@@ -53,61 +53,12 @@ describe 'Pseudo_Minimax_Ai' do
       @minimax.get_move(@board, @player).should == 0
     end
     it 'should place last move board' do
-      @board.grid=["X","O","X",
-                   "X","O","O",
+      @board.grid=["O","O","X",
+                   "X","X","O",
                    "O","X","+"]
 
       @minimax.get_move(@board, @player).should == 8
     end
   end
-
-
-  describe 'score_a_move(board, player, empty_space)' do
-    it 'should return a win move' do
-      @board=["X","X","+",
-              "+","+","+",
-              "+","+","+"]
-
-      @minimax.score_a_move(@board, @player)[1].should == 2
-    end
-
-    it 'should return a lose move' do
-      @board=["O","O","+",
-              "+","+","+",
-              "+","+","+"]
-
-      @minimax.score_a_move(@board, @player)[0].should == -1
-    end
-    it 'should defend against a split' do
-      @board=["O","+","+",
-              "+","X","+",
-              "+","O","+"]
-
-      @minimax.score_a_move(@board, @player)[1].should == 6
-    end
-    it 'should defend against split two' do
-      @board=["+","O","+",
-              "+","X","+",
-              "O","+","+"]
-
-      @minimax.score_a_move(@board, @player)[1].should == 0
-    end
-    it 'random test' do
-      @board=["+","O","+",
-              "+","X","+",
-              "O","+","O"]
-
-      @minimax.score_a_move(@board, @player)[1].should == 7
-    end
-    it 'should return a draw' do
-      @board=["O","X","X",
-              "X","O","O",
-              "X","O","X"]
-
-      @minimax.score_a_move(@board, @player).should == 0
-    end
-
-  end
-
 end
 
