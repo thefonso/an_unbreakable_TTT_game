@@ -30,12 +30,18 @@ class Minimax
     answers = Array.new
 
     empty_spaces_on_board.each do |space|
-      if score_a_move(cloned_board,player)[0] === 1
-        return score_a_move(cloned_board,player)[1]
-      elsif score_a_move(cloned_board,player)[0] === -1
-        return score_a_move(cloned_board,player)[1]
+      #binding.pry
+      if score_a_move(cloned_board,player) != nil
+        if score_a_move(cloned_board,player)[0] === 1
+          return score_a_move(cloned_board,player)[1]
+        elsif score_a_move(cloned_board,player)[0] === -1
+          return score_a_move(cloned_board,player)[1]
+        else
+          return space
+        end
+      else
+        return space
       end
-      return space
     end 
   end
 

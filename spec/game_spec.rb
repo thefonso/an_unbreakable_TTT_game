@@ -18,9 +18,9 @@ describe Game do
       @game.play_move
 
       @board.grid.should == [
+        "X", "+", "+",
         "+", "+", "+",
-        "+", "+", "+",
-        "X", "+", "+"
+        "+", "+", "+"
       ]
     end
   end
