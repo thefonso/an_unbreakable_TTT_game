@@ -35,7 +35,6 @@ class Minimax
       elsif score_a_move(cloned_board,player)[0] === -1
         return score_a_move(cloned_board,player)[1]
       end
-      #binding.pry
       return space
     end 
   end
