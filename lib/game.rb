@@ -21,6 +21,7 @@ class Game
       play_move
     end
     drawgrid
+    who_won
   end
 
   def drawgrid

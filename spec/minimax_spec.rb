@@ -1,6 +1,13 @@
 require 'board'
 require 'minimax'
 
+RSpec::Matchers.define :be_one_of do |list|
+  match do |actual|
+    list.include?(actual)
+  end
+end
+
+
 describe 'Pseudo_Minimax_Ai' do
   before (:each) do
     @player = "X"
@@ -52,12 +59,20 @@ describe 'Pseudo_Minimax_Ai' do
 
       @minimax.get_move(@board, @player).should == 0
     end
-    it 'should place last move board' do
-      @board.grid=["X","O","X",
-                   "X","O","O",
-                   "O","X","+"]
+    it 'should defend against human first move' do
+      @board.grid=["+","+","+",
+                   "+","+","+",
+                   "+","O","+"]
 
-      @minimax.get_move(@board, @player).should == 8
+      expect(@minimax.get_move(@board, @player)).to be_one_of([3,4,5,6,8])
+    end
+
+    it 'should place last move board' do
+      @board.grid=["X","O","O",
+                   "X","O","+",
+                   "O","X","X"]
+
+      @minimax.get_move(@board, @player).should == 5
     end
   end
 
@@ -77,6 +92,13 @@ describe 'Pseudo_Minimax_Ai' do
               "+","+","+"]
 
       @minimax.score_a_move(@board, @player)[0].should == -1
+    end
+    it 'should return a draw move' do
+      @board=["O","X","+",
+              "+","+","+",
+              "+","+","+"]
+
+      @minimax.score_a_move(@board, @player)[0].should == 0
     end
     it 'should defend against a split' do
       @board=["O","+","+",

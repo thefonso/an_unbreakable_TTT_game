@@ -12,7 +12,9 @@ class Minimax
   end
 
   def first_move
-    start_moves = [0, 2, 4, 6, 8].sample
+    #TODO - rebuild this logic...if it is ai's 
+    #first move then find nearest enemy location or favor center
+    start_moves = [4, 2, 0, 6, 8].sample
     return start_moves
   end
 
@@ -23,11 +25,10 @@ class Minimax
   def get_move(board, player)
     # return best move
     cloned_board = board.grid.clone
-
+    ply = 0
     return first_move if first_move?(board)
     board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys  
-    answers = Array.new
 
     empty_spaces_on_board.each do |space|
       #binding.pry
@@ -111,7 +112,6 @@ class Minimax
       end
     end
   end
-
 
   def draw?(board)
     board_array = board

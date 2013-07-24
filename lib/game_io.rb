@@ -25,9 +25,9 @@ class GameIO
   def welcome_message 
     output "Hey, welcome to my game. Get ready to be defeated" 
   end
-
+#TODO who won? || draw?
   def winner_message
-    output "Human has won!"
+    output "Someone has won!"
   end
 
   def draw_message
