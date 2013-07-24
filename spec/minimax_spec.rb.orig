@@ -108,12 +108,85 @@ describe Minimax do
     end
 
     it 'should place last move board' do
+<<<<<<< HEAD
       @board.grid=["X","O","O",
                    "X","O","+",
                    "O","X","X"]
+=======
+      @board.grid=["O","O","X",
+                   "X","X","O",
+                   "O","X","+"]
+>>>>>>> 53d83afd1ef83a061aca069c2fbcd994ea77a49f
 
       @minimax.get_move(@board, @player).should == 5
     end
   end
+<<<<<<< HEAD
+
+
+  context 'score_a_move(board, player, empty_space) method' do
+    it 'should return a win move' do
+      @board=["X","X","+",
+              "+","+","+",
+              "+","+","+"]
+
+      @minimax.score_a_move(@board, @player)[1].should == 2
+    end
+
+    it 'should return a lose move' do
+      @board=["O","O","+",
+              "+","+","+",
+              "+","+","+"]
+
+      @minimax.score_a_move(@board, @player)[0].should == -1
+    end
+    xit 'should return a draw move' do
+      @board=["O","X","+",
+              "+","+","+",
+              "+","+","+"]
+
+      @minimax.score_a_move(@board, @player)[0].should == 0
+    end
+    it 'should defend against a split' do
+      @board=["O","+","+",
+              "+","X","+",
+              "+","O","+"]
+
+      @minimax.score_a_move(@board, @player)[1].should == 6
+    end
+    it 'should defend against split two' do
+      @board=["+","O","+",
+              "+","X","+",
+              "O","+","+"]
+
+      @minimax.score_a_move(@board, @player)[1].should == 0
+    end
+    it 'random test' do
+      @board=["+","O","+",
+              "+","X","+",
+              "O","+","O"]
+
+      @minimax.score_a_move(@board, @player)[1].should == 7
+    end
+    it 'should return a draw' do
+      @board=["O","X","X",
+              "X","O","O",
+              "X","O","X"]
+
+      @minimax.score_a_move(@board, @player).should == 0
+    end
+  end
+
+  context 'score_a_board method' do
+  end
+
+  context 'draw?(board)'do
+  end
+
+  context 'switch_layer' do
+  end
+
+=======
+>>>>>>> 53d83afd1ef83a061aca069c2fbcd994ea77a49f
 end
 
