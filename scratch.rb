@@ -51,9 +51,7 @@ return -1 (7)
 
 should minimax return 0 for this board?
 
-"+","+","+",
-"+","+","X",
-"+","O","+"
+["O","+","+","+","+","+","+","+","+"]
 
 or just a 1 or -1 for a win or lose respectivly?
 
@@ -64,3 +62,4 @@ RSpec::Matchers.define :be_one_of do |list|
 end
 expect(answer).to be_one_of([3,4,5,6,8])
 
+["1","1","3","3","3","+","+","+","+"]

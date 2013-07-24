@@ -11,22 +11,35 @@ class Minimax
     @i = 0
   end
 
-  def first_move
-    #TODO - rebuild this logic...if it is ai's 
-    #first move then find nearest enemy location or favor center
-    start_moves = [4, 2, 0, 6, 8].sample
-    return start_moves
+  def first_move(board)
+    if board.count("+") == 9 
+      random_move = [ 0, 2, 4, 6, 8].sample
+      return random_move
+    else
+      move = board.index("O")
+      if move > 0
+        return move-1
+      else
+        return move+1
+      end
+    end
   end
 
-  def first_move?(board)
-    board == ["+", "+", "+", "+", "+", "+", "+", "+", "+"]
+  def first_move?(board, ply)
+    if board.count("+") == 9 && ply == 0
+      true
+    elsif board.count("+") == 8 && ply == 0
+      true
+    else
+      false
+    end
   end
 
   def get_move(board, player)
     # return best move
     cloned_board = board.grid.clone
     ply = 0
-    return first_move if first_move?(board)
+    return first_move(cloned_board) if first_move?(cloned_board,ply)
     board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys  
 
