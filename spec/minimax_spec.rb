@@ -27,24 +27,20 @@ describe Minimax do
       @board=["+","+","+",
               "+","+","+",
               "+","+","+"]
-      expect(@minimax.first_move(@board)).to be_one_of([4,2,0,6,8])
-      #@minimax.first_move(@board).should satisfy {|s| [0,2,4,6,8].include?(s)}
+      @minimax.first_move(@board).should == 4
     end
     it 'should take defensive first move' do
       @board=["+","+","+",
-              "+","+","+",
-              "+","+","O"]
-      @minimax.first_move(@board).should == 7
-      #@minimax.first_move(@board).should satisfy {|s| [0,2,4,6,8].include?(s)}
+              "+","X","+",
+              "+","+","+"]
+      expect(@minimax.first_move(@board)).to be_one_of([0,1,2,3,5,6,7,8])
     end
     it 'should take defensive first move' do
-      @board=["O","+","+",
+      @board=["X","+","+",
               "+","+","+",
               "+","+","+"]
-      @minimax.first_move(@board).should == 1
-      #@minimax.first_move(@board).should satisfy {|s| [0,2,4,6,8].include?(s)}
+      @minimax.first_move(@board).should == 4
     end
-
   end
   
   context 'first_move?' do

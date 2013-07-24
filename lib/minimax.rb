@@ -12,16 +12,11 @@ class Minimax
   end
 
   def first_move(board)
-    if board.count("+") == 9 
-      random_move = [ 0, 2, 4, 6, 8].sample
-      return random_move
-    else
-      move = board.index("O")
-      if move > 0
-        return move-1
-      else
-        return move+1
-      end
+    enemy_index = board.index("X")
+    if enemy_index == 4
+      return [0,1,2,3,5,6,7,8].sample
+    elsif enemy_index != 4
+      return 4
     end
   end
 
