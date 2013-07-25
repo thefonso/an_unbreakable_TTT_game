@@ -51,7 +51,9 @@ return -1 (7)
 
 should minimax return 0 for this board?
 
-["O","+","+","+","+","+","+","+","+"]
+["+","+","+",
+"+","+","X",
+"+","O","+"]
 
 or just a 1 or -1 for a win or lose respectivly?
 
@@ -63,3 +65,29 @@ end
 expect(answer).to be_one_of([3,4,5,6,8])
 
 ["1","1","3","3","3","+","+","+","+"]
+
+game start
+"+","+","+",
+"+","+","+",
+"+","+","+"
+turn == 0 / human("O") move first  / minimax board value?
+
+"+","+","+",
+"+","+","+",
+"+","O","+"
+turn == 1  / ai("X") move next / minimax board value?
+
+"+","+","+",
+"+","+","X",
+"+","O","+"
+turn == 2 / now human("O") move again / minimax board value?
+
+"+","+","X",
+"+","O","X",
+"+","O","+"
+turn == 3 / now ai("X") move / minimax board value?
+
+"+","O","X",
+"+","O","X",
+"+","O","+"
+turn == 4 / now human("O") move again / minimax board value == -1

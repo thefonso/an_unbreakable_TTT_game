@@ -27,19 +27,19 @@ describe Minimax do
       @board=["+","+","+",
               "+","+","+",
               "+","+","+"]
-      @minimax.first_move(@board).should == 4
+      @minimax.first_move(@board,@player).should == 4
     end
     it 'should take defensive first move' do
       @board=["+","+","+",
-              "+","X","+",
+              "+","O","+",
               "+","+","+"]
-      expect(@minimax.first_move(@board)).to be_one_of([0,1,2,3,5,6,7,8])
+      expect(@minimax.first_move(@board,@player)).to be_one_of([0,1,2,3,5,6,7,8])
     end
     it 'should take defensive first move' do
-      @board=["X","+","+",
+      @board=["O","+","+",
               "+","+","+",
               "+","+","+"]
-      @minimax.first_move(@board).should == 4
+      @minimax.first_move(@board,@player).should == 4
     end
   end
   
@@ -50,7 +50,7 @@ describe Minimax do
               "+","+","+",
               "+","+","+"]
 
-      @minimax.first_move?(@board,ply).should == true
+      @minimax.first_move?(@board,@player).should == true
     end
     it 'should return false' do
       ply = 1
@@ -58,14 +58,14 @@ describe Minimax do
               "+","+","+",
               "+","X","O"]
 
-      @minimax.first_move?(@board,ply).should == false
+      @minimax.first_move?(@board,@player).should == false
     end
   end
 
   context 'get_move method' do
     it 'should give a winning move' do
       @board.grid=["X","+","+",
-                   "+","+","+",
+                   "O","+","+",
                    "+","+","X"]
 
       @minimax.get_move(@board, @player).should == 4
@@ -73,14 +73,14 @@ describe Minimax do
 
     it 'should return a blocking move' do
       @board.grid=["O","+","+",
-                   "+","O","+",
+                   "X","O","+",
                    "+","+","+"]
 
       @minimax.get_move(@board, @player).should == 8
     end
 
     it 'should defend against split one' do
-      @board.grid=["O","X","+",
+      @board.grid=["O","+","+",
                    "+","X","+",
                    "+","O","+"]
 

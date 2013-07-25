@@ -1,18 +1,22 @@
 require 'facets'
 require_relative 'windetection'
 require 'pry'
-
+#TODO -  finish win|draw game output for this branch
+#then switch to experimental branch and refactor this class
+#
 class Minimax 
   include WinDetection
 
   attr_accessor :i
 
   def initialize
-    @i = 0
+    @i   = 0
+    @ply = 0
   end
 
-  def first_move(board)
-    enemy_index = board.index("X")
+  def first_move(board,player_symbol)
+    opponent = switch_player(player_symbol)
+    enemy_index = board.index(opponent)
     if enemy_index == 4
       return [0,1,2,3,5,6,7,8].sample
     elsif enemy_index != 4
@@ -20,33 +24,29 @@ class Minimax
     end
   end
 
-  def first_move?(board, ply)
-    if board.count("+") == 9 && ply == 0
-      true
-    elsif board.count("+") == 8 && ply == 0
+  def first_move?(board, player_symbol)
+    if board.count(player_symbol) == 0 
       true
     else
       false
     end
   end
 
-  def get_move(board, player)
+  def get_move(board, player_symbol)
     # return best move
     cloned_board = board.grid.clone
-    ply = 0
-    return first_move(cloned_board) if first_move?(cloned_board,ply)
+
+    return first_move(cloned_board,player_symbol) if first_move?(cloned_board,player_symbol)
+
     board_hash = Hash[(0...board.grid.size).zip board.grid]
     empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys  
 
     empty_spaces_on_board.each do |space|
-      #binding.pry
-      if score_a_move(cloned_board,player) != nil
-        if score_a_move(cloned_board,player)[0] === 1
-          return score_a_move(cloned_board,player)[1]
-        elsif score_a_move(cloned_board,player)[0] === -1
-          return score_a_move(cloned_board,player)[1]
-        else
-          return space
+      if score_a_move(cloned_board,player_symbol,@ply) != nil
+        if score_a_move(cloned_board,player_symbol,@ply)[0] === 1
+          return score_a_move(cloned_board,player_symbol,@ply)[1]
+        elsif score_a_move(cloned_board,player_symbol,@ply)[0] === -1
+          return score_a_move(cloned_board,player_symbol,@ply)[1]
         end
       else
         return space
@@ -54,17 +54,15 @@ class Minimax
     end 
   end
 
-  def score_a_move(board, player_symbol)
-    # find best move
-    opponent = switch_player(player_symbol)
-    next_boards         = Array.new
+  def score_a_move(board, player_symbol, ply)
     answers             = Array.new
+    next_boards         = Array.new
+
+    opponent = switch_player(player_symbol)
 
     if draw?(board)
       return 0
     else
-      ply=0
-      #find all empty spaces on board 
       board_hash = Hash[(0...board.size).zip board]
       empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys 
 
@@ -80,23 +78,24 @@ class Minimax
           return  1, space
         elsif three_in_a_row_win?(@enemy_board, opponent)
           return -1, space
-        else
-          next_boards << @enemy_board
-          ply+=1
         end
+        next_boards << @enemy_board
       end
+      ply+=1
+    end
 
-      if ply > 0
-        next_boards.each do |nextboard|
-          answers << score_a_board(nextboard, player_symbol)
-        end
-        return answers.detect{|element| answers.count(element) > 1}
+    if ply > 0
+      next_boards.each do |nextboard|
+        answers << score_a_board(nextboard, player_symbol, ply)
       end
-
+      return answers.detect{|element| answers.count(element) > 1}
     end
   end
 
-  def score_a_board(board, player_symbol)
+  def score_a_board(board, player_symbol, ply)
+
+    next_boards         = Array.new
+
     opponent = switch_player(player_symbol)
 
     if draw?(board)
@@ -112,13 +111,17 @@ class Minimax
 
         @enemy_board = board.clone
         @enemy_board[space] = opponent
+
         if three_in_a_row_win?(@cloned_board, player_symbol)
           return  1, space
         elsif three_in_a_row_win?(@enemy_board, opponent)
           return -1, space
         end
+        next_boards << @enemy_board
       end
+      ply+=1
     end
+
   end
 
   def draw?(board)
