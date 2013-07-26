@@ -128,8 +128,7 @@ describe Game do
         "+", "O", "+",
         "X", "O", "+"
       ]
-      #@game.who_won.should include("O has won!")
-
+      @game.who_won
       @io.game_output.string.should == "O has won!\n"
     end
     it "says X won the game" do
@@ -138,8 +137,8 @@ describe Game do
         "+", "X", "+",
         "+", "+", "X"
       ]
-
-      @game.who_won.should include("The winner is X")
+      @game.who_won
+      @io.game_output.string.should == "X has won!\n"
     end
     it "shows game to be a DRAW" do
       @board.grid = [
@@ -147,7 +146,8 @@ describe Game do
         "O", "X", "X",
         "X", "O", "O"
       ]
-      @game.who_won.should include("DRAW")
+      @game.who_won
+      @io.game_output.string.should == "The game is a DRAW\n"
     end
   end
 end

@@ -3,6 +3,7 @@ require_relative 'human'
 require_relative 'ai'
 require_relative 'windetection'
 require_relative 'game_io'
+require 'pry'
 
 class Game
   attr_reader :board, :player_1, :player_2, :io 
@@ -61,6 +62,7 @@ class Game
   def who_won
     if three_in_a_row_win?(@board.grid, @player_1.player_symbol)
       @io.winner_message(@player_1.player_symbol)
+      #binding.pry
     elsif three_in_a_row_win?(@board.grid, @player_2.player_symbol)
       @io.winner_message(@player_2.player_symbol)
     elsif @board.grid.none? { |move| move == '+' }
