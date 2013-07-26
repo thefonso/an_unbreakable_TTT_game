@@ -91,3 +91,14 @@ turn == 3 / now ai("X") move / minimax board value?
 "+","O","X",
 "+","O","+"
 turn == 4 / now human("O") move again / minimax board value == -1
+
+ def who_won
+    #TODO - ask about this...is there a better SOLID way? should this be here?
+    if three_in_a_row_win?(@board.grid, @player_1.player_symbol)
+      return "The winner is "+@player_1.player_symbol
+    elsif three_in_a_row_win?(@board.grid, @player_2.player_symbol)
+      return "The winner is "+@player_2.player_symbol
+    elsif @board.grid.none? { |move| move == '+' }
+      return "DRAW"
+    end
+  end

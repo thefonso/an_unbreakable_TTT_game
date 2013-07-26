@@ -17,10 +17,11 @@ describe GameIO do
     end
   end
 
-  context 'winner message' do
+  context 'winner_message' do
     it 'should display a winner message' do
-      @test_io.winner_message
-      @test_io.game_output.string.should == "Human has won!\n"
+      player_symbol = "X"
+      @test_io.winner_message(player_symbol)
+      @test_io.game_output.string.should == "X has won!\n"
     end
   end
 

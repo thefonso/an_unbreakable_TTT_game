@@ -1,10 +1,13 @@
+require 'game_io'
 require 'game'
 require 'board'
 require 'pry'
 
 describe Game do
   before(:each) do
-    @io                     = GameIO.new
+    test_in                 = StringIO.new("some test input\n")
+    test_out                = StringIO.new
+    @io                     = GameIO.new(test_in, test_out)
     @player_1               = Human.new("O", @io)
     @player_2               = AIhard.new("X",@io)
     @board                  = Board.new
@@ -18,8 +21,8 @@ describe Game do
       @game.play_move
 
       @board.grid.should == [
-        "X", "+", "+",
         "+", "+", "+",
+        "+", "X", "+",
         "+", "+", "+"
       ]
     end
@@ -125,8 +128,9 @@ describe Game do
         "+", "O", "+",
         "X", "O", "+"
       ]
+      #@game.who_won.should include("O has won!")
 
-      @game.who_won.should include("The winner is O")
+      @io.game_output.string.should == "O has won!\n"
     end
     it "says X won the game" do
       @board.grid = [

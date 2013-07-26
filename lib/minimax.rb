@@ -1,9 +1,15 @@
 require 'facets'
 require_relative 'windetection'
 require 'pry'
+
 #TODO -  finish win|draw game output for this branch
-#then switch to experimental branch and refactor this class
+# then switch to experimental branch and refactor this class
 #
+# each unfinished board is a branch
+# the score of that node is a combo of all 
+# the scores for the subsequently derived boards.
+#
+
 class Minimax 
   include WinDetection
 

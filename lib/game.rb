@@ -16,11 +16,13 @@ class Game
   end
 
   def start
+    @io.welcome_message
     while !over?
       drawgrid
       play_move
     end
     drawgrid
+    @io.game_over_message
     who_won
   end
 
@@ -57,13 +59,12 @@ class Game
   end
 
   def who_won
-    #TODO - ask about this...is there a better SOLID way?
     if three_in_a_row_win?(@board.grid, @player_1.player_symbol)
-      return "The winner is "+@player_1.player_symbol
+      @io.winner_message(@player_1.player_symbol)
     elsif three_in_a_row_win?(@board.grid, @player_2.player_symbol)
-      return "The winner is "+@player_2.player_symbol
+      @io.winner_message(@player_2.player_symbol)
     elsif @board.grid.none? { |move| move == '+' }
-      return "DRAW"
+      @io.draw_message
     end
   end
 end
