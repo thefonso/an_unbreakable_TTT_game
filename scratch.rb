@@ -102,3 +102,10 @@ turn == 4 / now human("O") move again / minimax board value == -1
       return "DRAW"
     end
   end
+
+     if ply > 0
+      next_branch.each do |nextboard|
+        answers << score_a_board(nextboard, player_symbol, ply)
+      end
+      return answers.detect{|element| answers.count(element) > 1}
+    end
