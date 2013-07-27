@@ -4,152 +4,44 @@ require 'board'
 require 'pry'
 
 describe Game do
-  before(:each) do
-    test_in                 = StringIO.new("some test input\n")
-    test_out                = StringIO.new
-    @io                     = GameIO.new(test_in, test_out)
-    @player_1               = Human.new("O", @io)
-    @player_2               = AIhard.new("X",@io)
-    @board                  = Board.new
-    @game                   = Game.new(@player_1, @player_2, @board, @io)
-    @game.stub(:puts)
-  end
+  context "plays until board is full" do
+    it 'plays until game board is full resulting in a draw' do
+      test_input  = StringIO.new("0\n6\n5\n1\n7\n")
+      test_output = StringIO.new
+      io          = GameIO.new(test_input, test_output)
+      player_1    = Human.new("O", io)
+      player_2    = AIhard.new("X", io)
+      board       = Board.new
+      game        = Game.new(player_1, player_2, board, io)
 
-  context "play_move method" do
-    it 'should update a move' do
-
-      @game.play_move
-
-      @board.grid.should == [
-        "+", "+", "+",
-        "+", "X", "+",
-        "+", "+", "+"
-      ]
-    end
-  end
-
-  context "over method" do
-    it 'is false if board is empty' do
-      @board.grid = [
-        "+", "+", "+",
-        "+", "+", "+",
-        "+", "+", "+"
-      ]
-
-      @game.over?.should be_false
+      game.start
+      test_output.string.should include "The game is a DRAW"
     end
 
-    it 'is false if board is not full' do
-      @board.grid = [
-        "O", "+", "+",
-        "+", "+", "+",
-        "+", "+", "+"
-      ]
+    it 'plays until game board is full resulting in a win for player X' do
+      test_input  = StringIO.new("0\n1\n")
+      test_output = StringIO.new
+      io          = GameIO.new(test_input, test_output)
+      player_1    = Human.new("O", io)
+      player_2    = AIhard.new("X", io)
+      board       = Board.new()
+      game        = Game.new(player_1, player_2, board, io)
 
-      @game.over?.should be_false
+      game.start
+      test_output.string.should include "X has won!"
     end
 
-    it 'is true if board is full' do
-      @board.grid = [
-        "O", "O", "O",
-        "O", "O", "O",
-        "O", "O", "O"
-      ]
+    it 'plays until game board is full resulting in a win for player O' do
+      test_input  = StringIO.new
+      test_output = StringIO.new
+      io          = GameIO.new(test_input, test_output)
+      player_1    = Human.new("O", io)
+      player_2    = AIhard.new("X", io)
+      board       = Board.new(Array.new(9, "O"))
+      game        = Game.new(player_1, player_2, board, io)
 
-      @game.over?.should be_true
-    end
-
-    it "is the game over" do
-      @board.grid = [
-        "O", "O", "O",
-        "O", "O", "O",
-        "O", "O", "O"
-      ]
-
-      @game.over?.should be_true
-    end
-
-    it "is it a human win" do
-      @board.grid = [
-        "+", "X", "+",
-        "+", "X", "+",
-        "+", "X", "+"
-      ]
-
-      @game.should be_over
-    end
-
-
-    [
-      ["O", "+", "+",
-       "O", "+", "+",
-       "O", "+", "+"
-    ],
-      ["+", "O", "+",
-       "+", "O", "+",
-       "+", "O", "+"
-    ],
-      ["+", "+", "O",
-       "+", "+", "O",
-       "+", "+", "O"
-    ],
-      ["O", "+", "+",
-       "+", "O", "+",
-       "+", "+", "O"
-    ],
-      ["+", "+", "O",
-       "+", "O", "+",
-       "O", "+", "+"
-    ],
-      ["O", "O", "O",
-       "+", "+", "+",
-       "+", "+", "+"
-    ],
-      ["+", "+", "+",
-       "O", "O", "O",
-       "+", "+", "+"
-    ],
-      ["+", "+", "+",
-       "+", "+", "+",
-       "O", "O", "O"
-    ],
-    ].each do |grid|
-      it "is a computer win for this grid: #{grid}" do
-        @board.grid = grid
-        @game.should be_over # @game.over?.should be_true
-      end
-    end
-  end
-
-  context "who_won" do
-    it "says O won the game" do
-      @board.grid = [
-        "+", "O", "X",
-        "+", "O", "+",
-        "X", "O", "+"
-      ]
-      @game.who_won
-      @io.game_output.string.should == "O has won!\n"
-    end
-    it "says X won the game" do
-      @board.grid = [
-        "X", "O", "O",
-        "+", "X", "+",
-        "+", "+", "X"
-      ]
-      @game.who_won
-      @io.game_output.string.should == "X has won!\n"
-    end
-    it "shows game to be a DRAW" do
-      @board.grid = [
-        "X", "O", "O",
-        "O", "X", "X",
-        "X", "O", "O"
-      ]
-      @game.who_won
-      @io.game_output.string.should == "The game is a DRAW\n"
+      game.start
+      test_output.string.should include "O has won!"
     end
   end
 end
-
-

@@ -1,9 +1,10 @@
-require './lib/minimax'
+require 'minimax'
 
 
 class AIhard
   attr_reader :player_symbol, :io
 
+  #treat io in the same way as the game class
   def initialize(player_symbol, io)
     @io            = io
     @player_symbol = player_symbol

@@ -109,3 +109,12 @@ if ply > 0
   end
   return answers.detect{|element| answers.count(element) > 1}
 end
+
+#TODO ASK ABOUT 
+# ai replaces it's own move
+# mystery bug - when game is running
+#
+#TODO implement out of range io message
+#
+
+highlight Cursor guifg=red guibg=white

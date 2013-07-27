@@ -1,8 +1,10 @@
-require './lib/board'
-require './lib/game'
-require './lib/human'
-require './lib/game_io'
-require 'pry'
+$LOAD_PATH << File.expand_path("../../lib/", __FILE__)
+
+require 'game'
+require 'board'
+require 'human'
+require 'game_io'
+
 
 #TODO - ask about 
 # ex. 

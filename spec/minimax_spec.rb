@@ -22,47 +22,34 @@ describe Minimax do
                  "+","+","+"]
   end
 
-  context 'first_move' do
-    it 'should take optimal first move' do
-      @board=["+","+","+",
-              "+","+","+",
-              "+","+","+"]
-      @minimax.first_move(@board,@player).should == 4
-    end
-    it 'should take defensive first move' do
-      @board=["+","+","+",
-              "+","O","+",
-              "+","+","+"]
-      expect(@minimax.first_move(@board,@player)).to be_one_of([0,1,2,3,5,6,7,8])
-    end
-    it 'should take defensive first move' do
-      @board=["O","+","+",
-              "+","+","+",
-              "+","+","+"]
-      @minimax.first_move(@board,@player).should == 4
-    end
-  end
-  
-  context 'first_move?' do
-    it 'should return true' do
-      ply = 0
-      @board=["+","+","+",
-              "+","+","+",
-              "+","+","+"]
-
-      @minimax.first_move?(@board,@player).should == true
-    end
-    it 'should return false' do
-      ply = 1
-      @board=["+","+","+",
-              "+","+","+",
-              "+","X","O"]
-
-      @minimax.first_move?(@board,@player).should == false
-    end
-  end
+  let(:corner_moves) {[0,2,6,8]}
 
   context 'get_move method' do
+
+    it 'should return optimal first move when AI is first' do
+      @board.grid = ["+","+","+",
+                     "+","+","+",
+                     "+","+","+"]
+
+      @minimax.get_move(@board,@player).should == 4
+    end
+
+    it 'should return defensive first move when AI is second and first player selected the center' do
+      @board.grid = ["+","+","+",
+                     "+","O","+",
+                     "+","+","+"]
+
+      expect(@minimax.get_move(@board,@player)).to be_one_of(corner_moves)
+    end
+
+    it 'should return defensive first move when AI is second and first player did not select the center' do
+      @board.grid = ["O","+","+",
+                     "+","+","+",
+                     "+","+","+"]
+
+      @minimax.get_move(@board,@player).should == 4
+    end
+
     it 'should give a winning move' do
       @board.grid=["X","+","+",
                    "O","+","+",
@@ -99,8 +86,6 @@ describe Minimax do
                    "+","O","+"]
 
       expect(@minimax.get_move(@board, @player)).to be_one_of([3,4,5,6,8])
-      # [3,4,5,6,8].include?( @minimax.get_move(@board, @player)  ).should == true
-      #@minimax.get_move(@board, @player).should satisfy {|s| [3,4,5,6,8].include?(s)}
     end
 
     it 'should place last move board' do
@@ -113,11 +98,9 @@ describe Minimax do
     it 'should place not break' do
       @board.grid=["X","X","O",
                    "O","O","X",
-                   "O","+","+"]
+                   "X","+","+"]
 
       @minimax.get_move(@board, @player).should be_a_kind_of(Integer) 
-      binding.pry
     end
   end
 end
-

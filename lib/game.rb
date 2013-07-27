@@ -1,12 +1,11 @@
-require_relative 'board'
-require_relative 'human'
-require_relative 'ai'
-require_relative 'windetection'
-require_relative 'game_io'
+require 'board'
+require 'human'
+require 'ai'
+require 'windetection'
+require 'game_io'
 require 'pry'
 
 class Game
-  attr_reader :board, :player_1, :player_2, :io 
   include WinDetection
 
   def initialize(player_1, player_2, board, io)
@@ -17,22 +16,36 @@ class Game
   end
 
   def start
-    @io.welcome_message
+    welcome_message
     while !over?
       drawgrid
       play_move
     end
     drawgrid
-    @io.game_over_message
-    who_won
+    game_over_message
+    game_result_message
   end
+
+  private
+
+  attr_reader :board, :player_1, :player_2, :io
 
   def drawgrid
     @io.draw_board(board)
   end
 
   def play_move
-    board.update(get_current_move, current_player_symbol)     
+     move = get_current_move
+     if valid_move?(move)
+      board.update(move, current_player_symbol)
+    else
+      range_error
+      play_move
+    end
+  end
+
+  def valid_move?(move)
+    board.grid[move] == '+'
   end
 
   def get_current_move
@@ -43,7 +56,7 @@ class Game
     end
   end
 
-  def current_player_symbol 
+  def current_player_symbol
     current_player.player_symbol
   end
 
@@ -56,16 +69,37 @@ class Game
   end
 
   def over?
-    win?(@board.grid)||draw?(@board.grid) 
+    win?(@board.grid)||draw?(@board.grid)
   end
 
-  def who_won
-    if three_in_a_row_win?(@board.grid, @player_1.player_symbol)
-      @io.winner_message(@player_1.player_symbol)
-    elsif three_in_a_row_win?(@board.grid, @player_2.player_symbol)
-      @io.winner_message(@player_2.player_symbol)
-    elsif @board.grid.none? { |move| move == '+' }
-      @io.draw_message
+  def game_result_message
+    if win?(board.grid)
+      [player_1.player_symbol, player_2.player_symbol].each do |player_symbol|
+      winner_message(player_symbol) if three_in_a_row_win?(board.grid, player_symbol)
+      end
+    else
+      draw_message
     end
   end
+
+  def range_error
+    io.range_error
+  end
+
+  def welcome_message
+    io.welcome_message
+  end
+
+  def game_over_message
+    io.game_over_message
+  end
+
+  def winner_message(player_symbol)
+    io.winner_message(player_symbol)
+  end
+
+  def draw_message
+    io.draw_message
+  end
+
 end

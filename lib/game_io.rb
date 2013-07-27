@@ -10,7 +10,7 @@ class GameIO
   def draw_board(board)
     case board.board_name
     when :three_by_three then draw_three_by_three(board)
-    when :four_by_four then draw_four_by_four(board)
+    when :four_by_four   then draw_four_by_four(board)
     end
   end
 
@@ -37,6 +37,10 @@ class GameIO
 
   def game_over_message
     output "Game Over"
+  end
+
+  def range_error
+    output "Can't move there, try again"
   end
 
   def draw_three_by_three(board)

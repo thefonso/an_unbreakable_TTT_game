@@ -1,5 +1,5 @@
 require 'facets'
-require_relative 'windetection'
+require 'windetection'
 require 'pry'
 
 class Minimax 

@@ -1,12 +1,8 @@
 class Board
   attr_accessor :grid
 
-  def initialize
-    @grid = [
-      "+", "+", "+",
-      "+", "+", "+",
-      "+", "+", "+"
-    ]
+  def initialize(grid = Array.new(9, "+"))
+    @grid = grid
   end
 
   def move_number
