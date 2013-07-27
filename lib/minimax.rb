@@ -61,7 +61,6 @@ class Minimax
       empty_spaces_on_board = board_hash.select{ |k,v| v == '+' }.keys 
 
       empty_spaces_on_board.each do |space|
-
         @cloned_board = board.clone
         @cloned_board[space] = player_symbol
 
@@ -73,17 +72,11 @@ class Minimax
         elsif three_in_a_row_win?(@enemy_board, opponent)
           return -1, space
         else
-          next_branch << @enemy_board
+
         end
       end
-
-      next_branch.each do |nextboard|
-        if score_a_move(nextboard, player_symbol)[0] == -1
-          return -1, score_a_move(nextboard, player_symbol)[1] 
-        end
-      end
-
     end
+    score_a_move(@cloned_board, switch_player(player_symbol))
   end
 
   def draw?(board)

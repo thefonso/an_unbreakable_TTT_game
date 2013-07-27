@@ -84,7 +84,7 @@ describe Minimax do
                    "+","X","+",
                    "+","O","+"]
 
-      @minimax.get_move(@board, @player).should == 6
+      @minimax.get_move(@board, @player).should == 3
     end
     it 'should defend against split two' do
       @board.grid=["+","O","+",
