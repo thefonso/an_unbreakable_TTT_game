@@ -110,6 +110,14 @@ describe Minimax do
 
       @minimax.get_move(@board, @player).should == 5
     end
+    it 'should place not break' do
+      @board.grid=["X","X","O",
+                   "O","O","X",
+                   "O","+","+"]
+
+      @minimax.get_move(@board, @player).should be_a_kind_of(Integer) 
+      binding.pry
+    end
   end
 end
 
