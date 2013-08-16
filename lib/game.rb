@@ -1,6 +1,6 @@
 require 'board'
 require 'human'
-require 'ai'
+require 'aihard'
 require 'windetection'
 require 'game_io'
 #require 'pry' #if you are TDDing you shouldn't need pry

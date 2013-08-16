@@ -38,7 +38,7 @@ class Minimax
       @enemy_board[space] = opponent
 
       if three_in_a_row_win?(@cloned_board, player_symbol)
-        return  space
+        return space
       elsif three_in_a_row_win?(@enemy_board, opponent)
         return space
       elsif draw?(@cloned_board)
@@ -63,7 +63,7 @@ class Minimax
     if enemy_index == 4
       return [0,2,6,8].sample
     elsif enemy_index != 4
-      return 4
+      return 4 
     end
   end
 

@@ -3,5 +3,4 @@ gem 'ruby-debug19'
 gem 'cheat'
 gem 'pry'
 gem 'pry-doc'
-gem 'facets'
 # why do many dependencies.  I don't actually need these to play the game to do I?

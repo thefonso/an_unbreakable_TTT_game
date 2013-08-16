@@ -80,6 +80,13 @@ describe Minimax do
 
       @minimax.get_move(@board, @player).should == 0
     end
+    it 'should defend against split three' do
+      @board.grid=["+","+","O",
+                   "+","X","+",
+                   "O","+","+"]
+
+      @minimax.get_move(@board, @player).should be_one_of([1,3,5,7])
+    end
     it 'should defend against human first move' do
       @board.grid=["+","+","+",
                    "+","+","+",
