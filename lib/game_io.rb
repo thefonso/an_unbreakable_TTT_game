@@ -1,4 +1,3 @@
-require 'pry'
 
 class GameIO
   attr_reader :game_input, :game_output
@@ -22,8 +21,8 @@ class GameIO
     output "Human makes move"
   end
 
-  def welcome_message 
-    output "Hey, welcome to my game. Get ready to be defeated" 
+  def welcome_message
+    output "Hey, welcome to my game. Get ready to be defeated"
   end
 
   def winner_message(player_symbol)
