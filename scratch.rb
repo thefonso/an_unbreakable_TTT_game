@@ -1,4 +1,15 @@
+#TODO
+# Notes from Doug
+#
+# UI dependency inversion
+# the UI tells the Game what the move is
+# the UI later BECOMES the Rails app, then the QT app, the Game becomes the gem!!!
+
+
+
+
 ["+", "O", "+", "+", "X", "+", "O", "+", "+"], ply = 0
+
 
 ["O", "O", "+", "+", "X", "+", "O", "+", "+"], ply = 1
 
