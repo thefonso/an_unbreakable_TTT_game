@@ -1,7 +1,6 @@
 require 'human'
 require 'board'
 require 'game_io'
-require 'pry'
 
 describe Human do
 
@@ -12,7 +11,7 @@ describe Human do
       described_class.new("X", io).player_symbol.should == "X"
       described_class.new("O", io).player_symbol.should == "O"
     end
-    
+
     it 'takes as input an io object' do
       io = GameIO.new(StringIO.new, StringIO.new)
       described_class.new("player_symbol", io).io.should == io
