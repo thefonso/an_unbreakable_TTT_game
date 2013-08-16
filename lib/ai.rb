@@ -1,6 +1,6 @@
 require 'minimax'
 
-
+#put AI Hard and AIeasy in two different files.  One class per file.
 class AIhard
   attr_reader :player_symbol, :io
 
@@ -15,7 +15,7 @@ class AIhard
     @io.ai_move #TODO - is this the right location for this
     @move_engine.get_move(board,player_symbol)
   end
-  
+
   def needs_board?
     true
   end
@@ -25,7 +25,7 @@ class AIeasy
   attr_accessor :player_symbol, :io
 
   def initialize(player_symbol, io)
-    @io            = io 
+    @io            = io
     @player_symbol = player_symbol
     @move_engine   =  RandomMove.new
   end

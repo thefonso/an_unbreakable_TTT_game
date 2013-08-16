@@ -1,16 +1,14 @@
-require 'facets'
 require 'windetection'
-require 'pry'
 
 #TODO -  finish win|draw game output for this branch
 # then switch to experimental branch and refactor this class
 #
 # each unfinished board is a branch
-# the score of that node is a combo of all 
+# the score of that node is a combo of all
 # the scores for the subsequently derived boards.
 #
 
-class Minimax 
+class Minimax
   include WinDetection
 
   attr_accessor :i
@@ -52,7 +50,7 @@ class Minimax
   end
 
   def first_move?(board, player_symbol)
-    if board.count(player_symbol) == 0 
+    if board.count(player_symbol) == 0
       true
     else
       false
