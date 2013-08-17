@@ -1,4 +1,3 @@
-require 'facets'
 require 'windetection'
 require 'pry'
 
@@ -6,11 +5,11 @@ require 'pry'
 # then switch to experimental branch and refactor this class
 #
 # each unfinished board is a branch
-# the score of that node is a combo of all 
+# the score of that node is a combo of all
 # the scores for the subsequently derived boards.
 #
 
-class Minimax 
+class Minimax
   include WinDetection
 
   attr_accessor :i
@@ -40,7 +39,7 @@ class Minimax
       @enemy_board[space] = opponent
 
       if three_in_a_row_win?(@cloned_board, player_symbol)
-        return  space
+        return space
       elsif three_in_a_row_win?(@enemy_board, opponent)
         return space
       elsif draw?(@cloned_board)
@@ -49,10 +48,11 @@ class Minimax
     end
 
     get_best_move(@cloned_board, switch_player(player_symbol))
+
   end
 
   def first_move?(board, player_symbol)
-    if board.count(player_symbol) == 0 
+    if board.count(player_symbol) == 0
       true
     else
       false
@@ -64,8 +64,22 @@ class Minimax
     enemy_index = board.index(opponent)
     if enemy_index == 4
       return [0,2,6,8].sample
-    elsif enemy_index != 4
+    elsif [0,2,6,8].include? enemy_index
+      return move_in_range(enemy_index) 
+    else
       return 4
+    end
+  end
+  
+  def move_in_range(enemy_index)
+    if enemy_index == 0
+      return [1,3].sample
+    elsif enemy_index == 8
+      return [7,5].sample
+    elsif enemy_index == 2
+      return [1,5].sample
+    elsif enemy_index == 6
+      return [3,7].sample
     end
   end
 

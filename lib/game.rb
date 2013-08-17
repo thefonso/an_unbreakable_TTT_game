@@ -1,9 +1,9 @@
 require 'board'
 require 'human'
-require 'ai'
+require 'aihard'
 require 'windetection'
 require 'game_io'
-require 'pry'
+#require 'pry' #if you are TDDing you shouldn't need pry
 
 class Game
   include WinDetection
@@ -40,7 +40,7 @@ class Game
       board.update(move, current_player_symbol)
     else
       range_error
-      play_move
+      play_move #because of this recursion, I could eventually overflow your stack by making bad moves over and over and over
     end
   end
 
@@ -49,10 +49,10 @@ class Game
   end
 
   def get_current_move
-    if current_player.needs_board?
+    if current_player.needs_board? #this breaks the player abstraction that you are trying to create. It just as well is is_human?
       current_player.make_move(board)
     else
-      current_player.make_move
+      current_player.make_move #just always pass the board into the make_move function if a player doesn't want to use it, no big deal.
     end
   end
 

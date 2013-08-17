@@ -1,6 +1,5 @@
 require 'windetection'
 require 'board'
-require 'pry'
 
 class Test_WinDetection
   include WinDetection
@@ -12,22 +11,22 @@ describe "Windetection module" do
   end
   context "win? method" do
     it "should indicate a win" do
-      detect = Test_WinDetection.new     
+      detect = Test_WinDetection.new
       @board = [
         "+", "X", "+",
         "+", "X", "+",
         "+", "X", "+"
       ]
-      detect.win?(@board).should be_true   
+      detect.win?(@board).should be_true
     end
     it "should indicate a draw" do
-      detect = Test_WinDetection.new     
+      detect = Test_WinDetection.new
       @board = [
         "O", "X", "O",
         "O", "X", "X",
         "X", "O", "O"
       ]
-      detect.draw?(@board).should be_true  
+      detect.draw?(@board).should be_true
     end
   end
   context "three_in_a_row method" do
