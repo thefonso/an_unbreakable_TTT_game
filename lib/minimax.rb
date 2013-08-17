@@ -1,4 +1,5 @@
 require 'windetection'
+require 'pry'
 
 #TODO -  finish win|draw game output for this branch
 # then switch to experimental branch and refactor this class
@@ -62,8 +63,10 @@ class Minimax
     enemy_index = board.index(opponent)
     if enemy_index == 4
       return [0,2,6,8].sample
-    elsif enemy_index != 4
-      return 4 
+    elsif [0,2,6,8].include? enemy_index
+      return [1,3,5,7].sample
+    else
+      return 4
     end
   end
 

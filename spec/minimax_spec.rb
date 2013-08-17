@@ -23,6 +23,7 @@ describe Minimax do
   end
 
   let(:corner_moves) {[0,2,6,8]}
+  let(:cross_moves) {[1,3,5,7]}
 
   context 'get_move method' do
 
@@ -47,7 +48,7 @@ describe Minimax do
                      "+","+","+",
                      "+","+","+"]
 
-      @minimax.get_move(@board,@player).should == 4
+      @minimax.get_move(@board,@player).should be_one_of(cross_moves) 
     end
 
     it 'should give a winning move' do
