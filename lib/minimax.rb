@@ -48,6 +48,7 @@ class Minimax
     end
 
     get_best_move(@cloned_board, switch_player(player_symbol))
+
   end
 
   def first_move?(board, player_symbol)
@@ -64,9 +65,21 @@ class Minimax
     if enemy_index == 4
       return [0,2,6,8].sample
     elsif [0,2,6,8].include? enemy_index
-      return [1,3,5,7].sample
+      return move_in_range(enemy_index) 
     else
       return 4
+    end
+  end
+  
+  def move_in_range(enemy_index)
+    if enemy_index == 0
+      return [1,3].sample
+    elsif enemy_index == 8
+      return [7,5].sample
+    elsif enemy_index == 2
+      return [1,5].sample
+    elsif enemy_index == 6
+      return [3,7].sample
     end
   end
 

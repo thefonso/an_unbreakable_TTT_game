@@ -13,7 +13,8 @@ describe Game do
     game        = Game.new(player_1, player_2, board, io)
 
     game.start
-    test_output.string.should_not include "X has won!"
+    # hmmm, I think this should say should_not include "O has won!"...since zero is Human -fonso
+    test_output.string.should_not include "O has won!"
   end
 
   context "plays until board is full" do
